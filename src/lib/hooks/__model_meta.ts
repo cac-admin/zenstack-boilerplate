@@ -13,10 +13,19 @@ const metadata = {
                 type: 'String',
                 isOptional: true,
             },
+            netid: {
+                name: 'netid',
+                type: 'String',
+                isOptional: true,
+            },
+            student_number: {
+                name: 'student_number',
+                type: 'String',
+                isOptional: true,
+            },
             email: {
                 name: 'email',
                 type: 'String',
-                isOptional: true,
             },
             emailVerified: {
                 name: 'emailVerified',
@@ -53,6 +62,18 @@ const metadata = {
                 isArray: true,
                 backLink: 'createdBy',
             },
+            lessons: {
+                name: 'lessons',
+                type: 'Lesson',
+                isDataModel: true,
+                isArray: true,
+                backLink: 'author',
+            },
+            role: {
+                name: 'role',
+                type: 'String',
+                attributes: [{ name: '@default', args: [{ value: 'USER' }] }],
+            },
         },
         codeRun: {
             id: {
@@ -83,6 +104,69 @@ const metadata = {
                 name: 'createdById',
                 type: 'String',
                 isForeignKey: true,
+            },
+        },
+        subject: {
+            id: {
+                name: 'id',
+                type: 'String',
+                isId: true,
+                attributes: [{ name: '@default', args: [] }],
+            },
+            title: {
+                name: 'title',
+                type: 'String',
+            },
+            createdAt: {
+                name: 'createdAt',
+                type: 'DateTime',
+                attributes: [{ name: '@default', args: [] }],
+            },
+            lessons: {
+                name: 'lessons',
+                type: 'Lesson',
+                isDataModel: true,
+                isArray: true,
+                backLink: 'subject',
+            },
+        },
+        lesson: {
+            id: {
+                name: 'id',
+                type: 'String',
+                isId: true,
+                attributes: [{ name: '@default', args: [] }],
+            },
+            author: {
+                name: 'author',
+                type: 'User',
+                isDataModel: true,
+                isOptional: true,
+                backLink: 'lessons',
+                isRelationOwner: true,
+                foreignKeyMapping: { id: 'authorId' },
+            },
+            subject: {
+                name: 'subject',
+                type: 'Subject',
+                isDataModel: true,
+                backLink: 'lessons',
+                isRelationOwner: true,
+                foreignKeyMapping: { id: 'subId' },
+            },
+            subId: {
+                name: 'subId',
+                type: 'String',
+                isForeignKey: true,
+            },
+            authorId: {
+                name: 'authorId',
+                type: 'String',
+                isForeignKey: true,
+            },
+            content: {
+                name: 'content',
+                type: 'String',
             },
         },
         account: {
@@ -215,6 +299,22 @@ const metadata = {
                 fields: ['id'],
             },
         },
+        subject: {
+            id: {
+                name: 'id',
+                fields: ['id'],
+            },
+            title: {
+                name: 'title',
+                fields: ['title'],
+            },
+        },
+        lesson: {
+            id: {
+                name: 'id',
+                fields: ['id'],
+            },
+        },
         account: {
             provider_providerAccountId: {
                 name: 'provider_providerAccountId',
@@ -248,6 +348,7 @@ const metadata = {
     },
     deleteCascade: {
         user: ['Account', 'Session'],
+        subject: ['Lesson'],
     },
     authModel: 'User',
 };

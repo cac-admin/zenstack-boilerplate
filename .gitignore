@@ -20,6 +20,9 @@ next-env.d.ts
 # production
 /build
 
+# static files (will be stored elsewhere)
+/public/profiles
+
 # misc
 .DS_Store
 *.pem

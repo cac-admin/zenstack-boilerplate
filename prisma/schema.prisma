@@ -17,7 +17,9 @@ generator client {
 model User {
     id String @id() @default(cuid())
     name String?
-    email String? @unique()
+    netid String?
+    student_number String?
+    email String @unique()
     emailVerified DateTime?
     /// @password
     /// @omit
@@ -26,6 +28,8 @@ model User {
     accounts Account[]
     sessions Session[]
     codeRuns CodeRun[]
+    lessons Lesson[]
+    role String @default("USER")
 }
 
 model CodeRun {
@@ -36,6 +40,24 @@ model CodeRun {
     createdById String
 
     @@index([time])
+}
+
+model Subject {
+    id String @id() @default(cuid())
+    title String @unique()
+    createdAt DateTime @default(now())
+    lessons Lesson[]
+}
+
+/// @@allow('read', true)
+/// @@allow('create,update,delete', auth() == author && author.role == 'AUTHOR' || auth().role == 'ADMIN')
+model Lesson {
+    id String @id() @default(cuid())
+    author User? @relation(fields: [authorId], references: [id])
+    subject Subject @relation(fields: [subId], references: [id], onDelete: Cascade)
+    subId String
+    authorId String
+    content String
 }
 
 model Account {

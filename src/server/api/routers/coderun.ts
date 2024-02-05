@@ -1,5 +1,5 @@
 import { execFileSync, execSync } from "child_process";
-import { writeFile, writeFileSync } from "fs";
+import { writeFileSync } from "fs";
 import { z } from "zod";
 
 import {
