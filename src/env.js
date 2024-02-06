@@ -2,10 +2,6 @@ import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
 export const env = createEnv({
-    /**
-     * Specify your server-side environment variables schema here. This way you can ensure the app
-     * isn't built with invalid env vars.
-     */
     server: {
         DATABASE_URL: z
             .string()
@@ -27,6 +23,11 @@ export const env = createEnv({
             // VERCEL_URL doesn't include `https` so it cant be validated as a URL
             process.env.VERCEL ? z.string() : z.string().url()
         ),
+        CLOUDFLARE_URL: z.string(),
+        PUBLIC_BUCKET_URL: z.string(),
+        CLOUDFLARE_KEY: z.string(),
+        CLOUDFLARE_KEY_ID: z.string(),
+        CLOUDFLARE_TOKEN: z.string()
     },
 
     /**
@@ -47,6 +48,11 @@ export const env = createEnv({
         NODE_ENV: process.env.NODE_ENV,
         NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
         NEXTAUTH_URL: process.env.NEXTAUTH_URL,
+        CLOUDFLARE_URL: process.env.CLOUDFLARE_URL,
+        PUBLIC_BUCKET_URL: process.env.PUBLIC_BUCKET_URL,
+        CLOUDFLARE_KEY: process.env.CLOUDFLARE_KEY,
+        CLOUDFLARE_KEY_ID: process.env.CLOUDFLARE_KEY_ID,
+        CLOUDFLARE_TOKEN: process.env.CLOUDFLARE_TOKEN
     },
     /**
      * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

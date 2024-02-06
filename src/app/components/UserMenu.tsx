@@ -16,7 +16,7 @@ export default async function UserMenu() {
                     <Image
                         width={40}
                         height={40}
-                        src={`${user?.image?.slice(8) ?? "/default.jpg"}`}
+                        src={`${user?.image ?? "/default.jpg"}`}
                         alt="User icon."
                         className="rounded-full"
                     />
