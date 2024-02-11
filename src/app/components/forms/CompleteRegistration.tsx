@@ -3,13 +3,13 @@
 import { api } from "~/trpc/react";
 
 export default function CompleteRegistration() {
-    const { mutate, error } = api.user.updateMe.useMutation();
+    const updateMe = api.user.updateMe.useMutation();
     const { data: user, isLoading } = api.user.getMe.useQuery();
 
     return (
-        isLoading ? <div className="w-full rounded-3xl px-4 py-2 my-2 flex max-w-xs bg-white/10"><p>Loading...</p></div>
+        isLoading || updateMe.isLoading ? <div className="w-full rounded-3xl px-4 py-2 my-2 flex max-w-xs bg-white/10"><p>Loading...</p></div>
             :
-            <div className="w-full rounded-3xl px-4 py-2 my-2 flex max-w-xs bg-white/10">
+            <div className="w-full rounded-3xl px-4 py-2 my-2 flex flex-col max-w-xs bg-white/10">
                 <form onSubmit={async (e) => {
                     e.preventDefault();
                     const data = new FormData(e.currentTarget);
@@ -33,7 +33,7 @@ export default function CompleteRegistration() {
                                 )
                             );
 
-                            mutate({
+                            updateMe.mutate({
                                 name,
                                 netid,
                                 student_number,
@@ -44,7 +44,7 @@ export default function CompleteRegistration() {
                                 }
                             });
                         } else {
-                            mutate({ name, netid, student_number });
+                            updateMe.mutate({ name, netid, student_number });
                         }
                     }
                 }}>
@@ -88,7 +88,7 @@ export default function CompleteRegistration() {
                         className="w-full rounded-full px-4 py-2 my-2 bg-white/10"
                     />
                 </form>
-                {error && error.data?.zodError?.formErrors.map((err) => <p className="mb-8 text-red-500">{err}</p>)}
+                {updateMe.error && updateMe.error.shape?.data.zodError?.fieldErrors["image"]?.map((e) => (<p className="text-red-500" key={e}>{e}</p>))}
             </div>
     );
 }

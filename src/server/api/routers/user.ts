@@ -1,10 +1,10 @@
-import { writeFileSync } from "fs";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { z } from "zod";
 
 import {
     createTRPCRouter,
     protectedProcedure,
+    publicProcedure,
 } from "~/server/api/trpc";
 import { env } from "~/env";
 
@@ -12,9 +12,13 @@ const MAX_SIZE = 5000000;
 const ACCEPTED_TYPES = ["image/jpeg", "image/jpg"];
 
 export const userRouter = createTRPCRouter({
-    getMe: protectedProcedure
+    getMe: publicProcedure
         .query(({ ctx }) => {
-            return ctx.db.user.findUnique({ where: { id: ctx.session.user.id } });
+            if (ctx.session) {
+                return ctx.db.user.findUnique({ where: { id: ctx.session.user.id } });
+            } else {
+                return null;
+            }
         }),
     updateMe: protectedProcedure
         .input(z.object({
@@ -23,7 +27,11 @@ export const userRouter = createTRPCRouter({
             student_number: z.string(),
             image: z.object({
                 data: z.string(),
-                type: z.string().refine((tp) => ACCEPTED_TYPES.includes(tp)),
+                type: z.string().refine(
+                    (tp) => ACCEPTED_TYPES.includes(tp),
+                    {
+                        message: `Image type not supported. Supported types are: ${ACCEPTED_TYPES.reduce((prev, cur) => `${prev}, ${cur}`)}`,
+                    }),
                 size: z.number().refine((sz) => sz <= MAX_SIZE)
             }).optional()
         }))

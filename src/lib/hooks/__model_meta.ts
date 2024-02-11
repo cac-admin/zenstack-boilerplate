@@ -71,8 +71,58 @@ const metadata = {
             },
             role: {
                 name: 'role',
+                type: 'Role',
+                isDataModel: true,
+                backLink: 'users',
+                isRelationOwner: true,
+                foreignKeyMapping: { name: 'roleName' },
+            },
+            roleName: {
+                name: 'roleName',
                 type: 'String',
-                attributes: [{ name: '@default', args: [{ value: 'USER' }] }],
+                isForeignKey: true,
+            },
+        },
+        role: {
+            name: {
+                name: 'name',
+                type: 'String',
+                isId: true,
+            },
+            permissions: {
+                name: 'permissions',
+                type: 'Permission',
+                isDataModel: true,
+                isArray: true,
+                backLink: 'role',
+            },
+            users: {
+                name: 'users',
+                type: 'User',
+                isDataModel: true,
+                isArray: true,
+                backLink: 'role',
+            },
+        },
+        permission: {
+            id: {
+                name: 'id',
+                type: 'String',
+                isId: true,
+            },
+            role: {
+                name: 'role',
+                type: 'Role',
+                isDataModel: true,
+                backLink: 'permissions',
+                isRelationOwner: true,
+                foreignKeyMapping: { name: 'roleName' },
+            },
+            roleName: {
+                name: 'roleName',
+                type: 'String',
+                isId: true,
+                isForeignKey: true,
             },
         },
         codeRun: {
@@ -107,15 +157,10 @@ const metadata = {
             },
         },
         subject: {
-            id: {
-                name: 'id',
+            name: {
+                name: 'name',
                 type: 'String',
                 isId: true,
-                attributes: [{ name: '@default', args: [] }],
-            },
-            title: {
-                name: 'title',
-                type: 'String',
             },
             createdAt: {
                 name: 'createdAt',
@@ -152,10 +197,10 @@ const metadata = {
                 isDataModel: true,
                 backLink: 'lessons',
                 isRelationOwner: true,
-                foreignKeyMapping: { id: 'subId' },
+                foreignKeyMapping: { name: 'subName' },
             },
-            subId: {
-                name: 'subId',
+            subName: {
+                name: 'subName',
                 type: 'String',
                 isForeignKey: true,
             },
@@ -293,6 +338,18 @@ const metadata = {
                 fields: ['email'],
             },
         },
+        role: {
+            name: {
+                name: 'name',
+                fields: ['name'],
+            },
+        },
+        permission: {
+            id_roleName: {
+                name: 'id_roleName',
+                fields: ['id', 'roleName'],
+            },
+        },
         codeRun: {
             id: {
                 name: 'id',
@@ -300,13 +357,9 @@ const metadata = {
             },
         },
         subject: {
-            id: {
-                name: 'id',
-                fields: ['id'],
-            },
-            title: {
-                name: 'title',
-                fields: ['title'],
+            name: {
+                name: 'name',
+                fields: ['name'],
             },
         },
         lesson: {

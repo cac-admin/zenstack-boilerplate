@@ -1,5 +1,5 @@
 import { getServerAuthSession } from "~/server/auth";
-import CodeUploader from "../components/CodeUploader";
+import CodeUploader from "~/app/components/forms/CodeUploader";
 
 export default async function Uploader() {
     const session = await getServerAuthSession();

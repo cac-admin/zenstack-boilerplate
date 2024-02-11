@@ -1,6 +1,6 @@
 import { unstable_noStore as noStore } from "next/cache";
 import { getServerAuthSession } from "~/server/auth";
-import CompleteRegistrationForm from "../components/CompleteRegistrationForm";
+import CompleteRegistrationForm from "~/app/components/forms/CompleteRegistration";
 import { api } from "~/trpc/server";
 import Link from "next/link";
 

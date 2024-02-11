@@ -29,7 +29,24 @@ model User {
     sessions Session[]
     codeRuns CodeRun[]
     lessons Lesson[]
-    role String @default("USER")
+    role Role @relation(fields: [roleName], references: [name])
+    roleName String
+}
+
+/// @@allow('read', true)
+/// @@allow('all', has(auth().role.permissions, 'edit_roles'))
+model Role {
+    name String @id()
+    permissions Permission[]
+    users User[]
+}
+
+model Permission {
+    id String
+    role Role @relation(fields: [roleName], references: [name])
+    roleName String
+
+    @@id([id, roleName])
 }
 
 model CodeRun {
@@ -42,20 +59,23 @@ model CodeRun {
     @@index([time])
 }
 
+/// @@allow('read', true)
+/// @@allow('create', has(auth().role.permissions, 'create_subject'))
+/// @@allow('update,delete', has(auth().role.permissions, 'modify_subject'))
 model Subject {
-    id String @id() @default(cuid())
-    title String @unique()
+    name String @id()
     createdAt DateTime @default(now())
     lessons Lesson[]
 }
 
 /// @@allow('read', true)
-/// @@allow('create,update,delete', auth() == author && author.role == 'AUTHOR' || auth().role == 'ADMIN')
+/// @@allow('create', has(auth().role.permissions, 'create_lesson'))
+/// @@allow('update,delete', auth() == author || has(auth().role.permissions, 'modify_lesson'))
 model Lesson {
     id String @id() @default(cuid())
     author User? @relation(fields: [authorId], references: [id])
-    subject Subject @relation(fields: [subId], references: [id], onDelete: Cascade)
-    subId String
+    subject Subject @relation(fields: [subName], references: [name], onDelete: Cascade)
+    subName String
     authorId String
     content String
 }

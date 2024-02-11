@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link";
-import { useCreateUser } from "../../lib/hooks";
+import { useCreateUser } from "~/lib/hooks";
 import { useState } from "react";
 
 export default function SignupForm() {

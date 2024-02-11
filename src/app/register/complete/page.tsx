@@ -1,5 +1,5 @@
-import CompleteRegistrationForm from "~/app/components/CompleteRegistrationForm";
-import { getServerAuthSession } from "../../../server/auth";
+import CompleteRegistrationForm from "~/app/components/forms/CompleteRegistration";
+import { getServerAuthSession } from "~/server/auth";
 
 export default async function CompleteRegistration() {
     const session = await getServerAuthSession();

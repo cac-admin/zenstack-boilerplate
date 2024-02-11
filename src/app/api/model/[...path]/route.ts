@@ -1,7 +1,7 @@
 import { NextRequestHandler } from '@zenstackhq/server/next';
 import { enhance } from '@zenstackhq/runtime';
-import { getServerAuthSession } from '../../../../server/auth';
-import { db } from '../../../../server/db';
+import { getServerAuthSession } from '~/server/auth';
+import { db } from '~/server/db';
 
 async function getPrisma() {
     const session = await getServerAuthSession();
