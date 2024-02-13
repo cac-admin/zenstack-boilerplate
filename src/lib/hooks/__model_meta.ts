@@ -69,60 +69,63 @@ const metadata = {
                 isArray: true,
                 backLink: 'author',
             },
-            role: {
-                name: 'role',
+            roles: {
+                name: 'roles',
                 type: 'Role',
                 isDataModel: true,
+                isArray: true,
                 backLink: 'users',
                 isRelationOwner: true,
-                foreignKeyMapping: { name: 'roleName' },
-            },
-            roleName: {
-                name: 'roleName',
-                type: 'String',
-                isForeignKey: true,
             },
         },
         role: {
+            id: {
+                name: 'id',
+                type: 'Int',
+                isId: true,
+                attributes: [{ name: '@default', args: [] }],
+                isAutoIncrement: true,
+            },
             name: {
                 name: 'name',
                 type: 'String',
-                isId: true,
             },
             permissions: {
                 name: 'permissions',
                 type: 'Permission',
                 isDataModel: true,
                 isArray: true,
-                backLink: 'role',
+                backLink: 'roles',
+                isRelationOwner: true,
             },
             users: {
                 name: 'users',
                 type: 'User',
                 isDataModel: true,
                 isArray: true,
-                backLink: 'role',
+                backLink: 'roles',
+                isRelationOwner: true,
             },
         },
         permission: {
             id: {
                 name: 'id',
-                type: 'String',
+                type: 'Int',
                 isId: true,
+                attributes: [{ name: '@default', args: [] }],
+                isAutoIncrement: true,
             },
-            role: {
-                name: 'role',
+            name: {
+                name: 'name',
+                type: 'String',
+            },
+            roles: {
+                name: 'roles',
                 type: 'Role',
                 isDataModel: true,
+                isArray: true,
                 backLink: 'permissions',
                 isRelationOwner: true,
-                foreignKeyMapping: { name: 'roleName' },
-            },
-            roleName: {
-                name: 'roleName',
-                type: 'String',
-                isId: true,
-                isForeignKey: true,
             },
         },
         codeRun: {
@@ -339,15 +342,15 @@ const metadata = {
             },
         },
         role: {
-            name: {
-                name: 'name',
-                fields: ['name'],
+            id: {
+                name: 'id',
+                fields: ['id'],
             },
         },
         permission: {
-            id_roleName: {
-                name: 'id_roleName',
-                fields: ['id', 'roleName'],
+            id: {
+                name: 'id',
+                fields: ['id'],
             },
         },
         codeRun: {

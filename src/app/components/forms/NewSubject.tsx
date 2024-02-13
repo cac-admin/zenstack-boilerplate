@@ -1,34 +1,45 @@
-import { api } from "~/trpc/react";
+import { useState } from "react";
+import { useCreateSubject } from "~/lib/hooks";
+
 export default function NewSubject() {
-    const { mutate, error } = api.subject.create.useMutation();
+    const { trigger: mutate } = useCreateSubject();
+    const [err, setErr] = useState<string | undefined>();
 
     return (
-        <div className="w-full rounded-3xl px-4 py-2 flex flex-col max-w-xs bg-white/10">
-            {error !== undefined ?? <p>{error?.message}</p>}
-            <form onSubmit={async (e) => {
-                e.preventDefault();
-                const data = new FormData(e.currentTarget);
-                const title = data.get('title')?.toString();
+        <>
+            {err && <p>{err}</p>}
+            <form className="container w-full rounded-3xl px-4 py-2 gap-2 flex flex-col max-w-xs bg-white/10"
+                onSubmit={async (e) => {
+                    e.preventDefault();
+                    const data = new FormData(e.currentTarget);
+                    const name = data.get('name')?.toString();
 
-                if (!title) {
-                    return;
-                }
-                mutate({ title });
-            }}>
-                <label htmlFor="title">Title</label>
-                <input
-                    type="text"
-                    name="title"
-                    placeholder="Enter a subject title..."
-                    className="w-full rounded-full px-4 py-2 my-2 text-black"
-                    required
-                />
-                <input
-                    type="submit"
-                    value="Submit"
-                    className="rounded-full px-4 py-2 my-2 bg-white/10"
-                />
+                    if (!name) {
+                        return;
+                    }
+                    try {
+                        mutate({ data: { name } });
+                    }
+                    catch (e: any) {
+                        setErr(JSON.stringify(e));
+                    }
+                }}>
+                <label htmlFor="name">Create a New Subject</label>
+                <div className="flex flex-row gap-2">
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Enter a subject title..."
+                        className="w-full rounded-full px-2 py-2 text-black"
+                        required
+                    />
+                    <input
+                        type="submit"
+                        value="Submit"
+                        className="rounded-full px-2 py-2 bg-white/10"
+                    />
+                </div>
             </form>
-        </div>
+        </>
     );
 }

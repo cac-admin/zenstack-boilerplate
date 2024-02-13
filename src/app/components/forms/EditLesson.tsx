@@ -1,16 +1,21 @@
-'use client'
-
-import { useCreateLesson, useFindManySubject } from "~/lib/hooks";
+import { useFindManySubject, useUpdateLesson } from "~/lib/hooks";
 import { api } from "~/trpc/react";
 import MDEditor, { commands } from "@uiw/react-md-editor";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Lesson } from "@prisma/client";
 
-export default function EditLesson({ lesson }: { lesson: Lesson }) {
-    const { trigger: createLesson, error } = useCreateLesson();
+export default function EditLesson({ lesson, setLesson }: {
+    lesson: Lesson
+    setLesson: Dispatch<SetStateAction<Lesson | undefined>>
+}) {
+    const { trigger: updateLesson, error } = useUpdateLesson();
     const { data: user, isLoading } = api.user.getMe.useQuery();
     const { data: subjects, isLoading: isSubLoading } = useFindManySubject();
     const [val, setVal] = useState<string | undefined>(lesson.content);
+
+    useEffect(() => {
+        setVal(lesson.content);
+    }, [lesson]);
 
     if (isLoading || isSubLoading) {
         return (
@@ -32,20 +37,21 @@ export default function EditLesson({ lesson }: { lesson: Lesson }) {
                     return;
                 }
 
-                await createLesson({
+                await updateLesson({
                     data: {
-                        authorId: user.id,
-                        subId: subject,
+                        subName: subject,
                         content: val
+                    },
+                    where: {
+                        id: lesson.id
                     }
                 });
             }}>
                 <div className="container flex flex-row justify-between content-between">
                     <div className="container flex flex-row">
                         <label htmlFor="subject" className="px-4 py-2 my-2">Subject</label>
-                        <select name="subject" className="rounded-full px-4 py-2 my-2 bg-white/10" required>
-                            <option value="0" selected>None</option>
-                            {subjects?.map((sub) => <option value={sub.id}>{sub.title}</option>)}
+                        <select name="subject" value={lesson.subName} className="rounded-full px-4 py-2 my-2 bg-white/10" required>
+                            {subjects?.map((sub) => <option key={sub.name} value={sub.name}>{sub.name}</option>)}
                         </select>
                     </div>
                     <input

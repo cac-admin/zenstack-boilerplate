@@ -33,29 +33,26 @@ model User {
     sessions      Session[]
     codeRuns      CodeRun[]
     lessons       Lesson[]
-    role          Role @relation(fields: [roleName], references: [name])
-    roleName      String
-
+    roles         Role[]
 
     @@allow('create,read', true)
     @@allow('update,delete', auth() == this)
 }
 
 model Role {
-    name String @id
+    id Int @id @default(autoincrement())
+    name String
     permissions Permission[]
     users User[]
 
     @@allow('read', true)
-    @@allow('all', has(auth().role.permissions, 'edit_roles'))
+    @@allow('all', auth().roles?[permissions?[name == 'edit_roles']])
 }
 
 model Permission {
-    id String
-    role Role @relation(fields: [roleName], references: [name])
-    roleName String
-
-    @@id([id, roleName])
+    id Int @id @default(autoincrement())
+    name String
+    roles Role[]
 }
 
 model CodeRun {
@@ -74,8 +71,8 @@ model Subject {
     lessons Lesson[]
 
     @@allow('read', true)
-    @@allow('create', has(auth().role.permissions, 'create_subject'))
-    @@allow('update,delete', has(auth().role.permissions, 'modify_subject'))
+    @@allow('create', auth().roles?[permissions?[name == 'create_subject']])
+    @@allow('update,delete', auth().roles?[permissions?[name == 'modify_subject']])
 }
 
 model Lesson {
@@ -87,8 +84,8 @@ model Lesson {
     content String
 
     @@allow('read', true)
-    @@allow('create', has(auth().role.permissions, 'create_lesson'))
-    @@allow('update,delete', auth() == author || has(auth().role.permissions, 'modify_lesson'))
+    @@allow('create', auth().roles?[permissions?[name == 'create_lesson']])
+    @@allow('update,delete', auth() == author || auth().roles?[permissions?[name == 'modify_lesson']])
 }
 
 // Necessary for Next auth

@@ -15,7 +15,7 @@ export const userRouter = createTRPCRouter({
     getMe: publicProcedure
         .query(({ ctx }) => {
             if (ctx.session) {
-                return ctx.db.user.findUnique({ where: { id: ctx.session.user.id } });
+                return ctx.db.user.findUnique({ where: { id: ctx.session.user.id }, include: { roles: { include: { permissions: true } } } });
             } else {
                 return null;
             }
@@ -37,7 +37,6 @@ export const userRouter = createTRPCRouter({
         }))
         .mutation(async ({ ctx, input }) => {
             if (input.image) {
-                console.log(input.image.data.length);
                 const buf = Buffer.from(input.image.data, 'base64');
 
                 const client = new S3Client({

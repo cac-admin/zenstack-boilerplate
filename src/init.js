@@ -1,55 +1,66 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { connect } from "http2";
 
 const prisma = new PrismaClient();
 
 async function main() {
-    // Create roles.
-    await prisma.role.create({
-        data: { name: "ADMIN" }
-    });
-    await prisma.role.create({
-        data: { name: "AUTHOR" }
-    });
-    await prisma.role.create({
-        data: { name: "USER" }
-    });
-
     // Subject permissions.
-    await prisma.permission.create({
-        data: { id: "create_subject", roleName: "ADMIN" }
+    const subCreate = await prisma.permission.create({
+        data: { name: "create_subject" }
     });
-    await prisma.permission.create({
-        data: { id: "create_subject", roleName: "AUTHOR" }
-    });
-    await prisma.permission.create({
-        data: { id: "modify_subject", roleName: "ADMIN" }
+    const subMod = await prisma.permission.create({
+        data: { name: "modify_subject" }
     });
 
     // Lesson permissions.
-    await prisma.permission.create({
-        data: { id: "create_lesson", roleName: "AUTHOR" }
+    const lessonCreate = await prisma.permission.create({
+        data: { name: "create_lesson" }
     });
-    await prisma.permission.create({
-        data: { id: "create_lesson", roleName: "ADMIN" }
+    const modLesson = await prisma.permission.create({
+        data: { name: "modify_lesson" }
     });
-    await prisma.permission.create({
-        data: { id: "modify_lesson", roleName: "ADMIN" }
+
+    // Create roles.
+    const admin = await prisma.role.create({
+        data: {
+            name: "admin",
+            permissions: {
+                connect: [
+                    { id: subCreate.id },
+                    { id: subMod.id },
+                    { id: lessonCreate.id },
+                    { id: modLesson.id }
+                ]
+            }
+        }
+    });
+    await prisma.role.create({
+        data: {
+            name: "author",
+            permissions: {
+                connect: [
+                    { id: subCreate.id },
+                    { id: lessonCreate.id },
+                ]
+            }
+        }
     });
 
     if (!process.env.ADMIN_EMAIL || !process.env.ADMIN_PASSWORD) {
         throw new Error("Please add ADMIN_EMAIL and ADMIN_PASSWORD to environment.");
     }
-
     const salt = bcrypt.genSaltSync(12);
     const hash = bcrypt.hashSync(process.env.ADMIN_PASSWORD, salt);
 
     // Create default administrator.
-    await prisma.user.update({
+    await prisma.user.create({
         data: {
+            email: process.env.ADMIN_EMAIL,
             password: hash,
+            roles: { connect: { id: admin.id } }
         },
-        where: { email: "ejrsilver@gmail.com" }
+        include: { roles: { include: { permissions: true } } },
     });
 }
 

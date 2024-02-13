@@ -6,6 +6,7 @@ import { api } from "~/trpc/server";
 export default async function Home() {
     noStore();
     const session = await getServerAuthSession();
+
     const user = await api.user.getMe.query();
     return (
         <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
