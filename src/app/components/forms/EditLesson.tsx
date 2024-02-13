@@ -1,16 +1,17 @@
-import { useFindManySubject, useUpdateLesson } from "~/lib/hooks";
 import { api } from "~/trpc/react";
 import MDEditor, { commands } from "@uiw/react-md-editor";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Lesson } from "@prisma/client";
+import Link from "next/link";
+import Spinner from "../Spinner";
 
 export default function EditLesson({ lesson, setLesson }: {
     lesson: Lesson
     setLesson: Dispatch<SetStateAction<Lesson | undefined>>
 }) {
-    const { trigger: updateLesson, error } = useUpdateLesson();
+    const { mutate: updateLesson, error, isLoading: isUpdating } = api.zen.lesson.update.useMutation();
     const { data: user, isLoading } = api.user.getMe.useQuery();
-    const { data: subjects, isLoading: isSubLoading } = useFindManySubject();
+    const { data: subjects, isLoading: isSubLoading } = api.zen.subject.findMany.useQuery({});
     const [val, setVal] = useState<string | undefined>(lesson.content);
 
     useEffect(() => {
@@ -19,15 +20,15 @@ export default function EditLesson({ lesson, setLesson }: {
 
     if (isLoading || isSubLoading) {
         return (
-            <div className="w-max rounded-3xl px-4 py-2 my-2 flex max-w-s bg-white/10">
-                <p>Loading...</p>
+            <div className="w-max flex items-center rounded-3xl px-4 py-2 my-2 bg-white/10">
+                <Spinner className="w-6 h-6 place-self-center" />
             </div>
         );
     }
 
     return (
-        <div className="container rounded-3xl px-4 py-4 gap-4 flex flex-col w-11/12 bg-white/10">
-            {error !== undefined && <p>{JSON.stringify(error)}</p>}
+        <div className="rounded-3xl py-4 gap-4 flex flex-col bg-white/10">
+            {error && <p>{JSON.stringify(error)}</p>}
             <form onSubmit={async (e) => {
                 e.preventDefault();
                 const data = new FormData(e.currentTarget);
@@ -37,7 +38,7 @@ export default function EditLesson({ lesson, setLesson }: {
                     return;
                 }
 
-                await updateLesson({
+                updateLesson({
                     data: {
                         subName: subject,
                         content: val
@@ -46,22 +47,33 @@ export default function EditLesson({ lesson, setLesson }: {
                         id: lesson.id
                     }
                 });
+                setLesson({ ...lesson, content: val });
             }}>
-                <div className="container flex flex-row justify-between content-between">
+                <div className="flex flex-row justify-between content-between">
                     <div className="container flex flex-row">
-                        <label htmlFor="subject" className="px-4 py-2 my-2">Subject</label>
-                        <select name="subject" value={lesson.subName} className="rounded-full px-4 py-2 my-2 bg-white/10" required>
+                        <label htmlFor="subject" className="pr-4 py-2 my-2">Subject</label>
+                        <select name="subject" defaultValue={lesson.subName} className="rounded-full px-4 py-2 my-2 bg-white/10" required>
                             {subjects?.map((sub) => <option key={sub.name} value={sub.name}>{sub.name}</option>)}
                         </select>
                     </div>
-                    <input
-                        type="submit"
-                        value="Submit"
-                        className="rounded-full px-4 py-2 my-2 bg-white/10"
-                    />
+                    <div className="container flex flex-row content-center justify-end gap-4">
+                        <Link
+                            href={`/lessons/${lesson.id}`}
+                            className="rounded-full px-4 py-2 my-2 bg-white/10"
+                        >View Lesson</Link>
+                        {!isUpdating ?
+                            <input
+                                type="submit"
+                                value="Submit"
+                                className="rounded-full px-4 py-2 my-2 bg-white/10"
+                            />
+                            :
+                            <Spinner className="w-6 h-6 place-self-center" />
+                        }
+                    </div>
                 </div>
             </form>
-            <div className="container min-h-96">
+            <div className="container min-h-full">
                 <MDEditor
                     value={val}
                     onChange={setVal}
@@ -74,7 +86,7 @@ export default function EditLesson({ lesson, setLesson }: {
                         borderRadius: "1.4rem",
                         padding: "0.5rem",
                         font: "inherit",
-                        minHeight: "24rem",
+                        minHeight: "36rem",
                     }}
                     previewOptions={{
                         style: {

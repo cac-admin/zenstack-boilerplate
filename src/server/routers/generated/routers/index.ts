@@ -34,10 +34,10 @@ export type ProcBuilder<Config extends BaseConfig> = ProcedureBuilder<
 >;
 
 export function db(ctx: any) {
-    if (!ctx.prisma) {
+    if (!ctx.db) {
         throw new Error('Missing "prisma" field in trpc context');
     }
-    return ctx.prisma as PrismaClient;
+    return ctx.db as PrismaClient;
 }
 
 export function createRouter<Config extends BaseConfig>(router: RouterFactory<Config>, procedure: ProcBuilder<Config>) {
