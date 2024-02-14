@@ -73,7 +73,7 @@ model Subject {
 model Lesson {
     id String @id() @default(cuid())
     author User? @relation(fields: [authorId], references: [id])
-    subject Subject @relation(fields: [subName], references: [name], onDelete: Cascade)
+    subject Subject @relation(fields: [subName], references: [name])
     subName String
     authorId String
     content Bytes

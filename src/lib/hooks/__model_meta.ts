@@ -404,7 +404,6 @@ const metadata = {
     },
     deleteCascade: {
         user: ['Account', 'Session'],
-        subject: ['Lesson'],
     },
     authModel: 'User',
 };
