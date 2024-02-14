@@ -30,6 +30,20 @@ export function useMutateSubject() {
         );
     }
 
+    /** @deprecated Use `useCreateManySubject` hook instead. */
+    async function createManySubject<T extends Prisma.SubjectCreateManyArgs>(
+        args: Prisma.SelectSubset<T, Prisma.SubjectCreateManyArgs>,
+    ) {
+        return await request.mutationRequest<Prisma.BatchPayload, false>(
+            'POST',
+            `${endpoint}/subject/createMany`,
+            args,
+            invalidate,
+            fetch,
+            false,
+        );
+    }
+
     /** @deprecated Use `useUpdateSubject` hook instead. */
     async function updateSubject<T extends Prisma.SubjectUpdateArgs>(
         args: Prisma.SelectSubset<T, Prisma.SubjectUpdateArgs>,
@@ -99,7 +113,15 @@ export function useMutateSubject() {
             false,
         );
     }
-    return { createSubject, updateSubject, updateManySubject, upsertSubject, deleteSubject, deleteManySubject };
+    return {
+        createSubject,
+        createManySubject,
+        updateSubject,
+        updateManySubject,
+        upsertSubject,
+        deleteSubject,
+        deleteManySubject,
+    };
 }
 
 export function useCreateSubject(
@@ -114,6 +136,20 @@ export function useCreateSubject(
         ...mutation,
         trigger: <T extends Prisma.SubjectCreateArgs>(args: Prisma.SelectSubset<T, Prisma.SubjectCreateArgs>) => {
             return mutation.trigger(args, options as any) as Promise<Prisma.SubjectGetPayload<T> | undefined>;
+        },
+    };
+}
+
+export function useCreateManySubject(
+    options?: MutationOptions<Prisma.BatchPayload, unknown, Prisma.SubjectCreateManyArgs>,
+) {
+    const mutation = request.useModelMutation('Subject', 'POST', 'createMany', metadata, options, false);
+    return {
+        ...mutation,
+        trigger: <T extends Prisma.SubjectCreateManyArgs>(
+            args: Prisma.SelectSubset<T, Prisma.SubjectCreateManyArgs>,
+        ) => {
+            return mutation.trigger(args, options as any) as Promise<Prisma.BatchPayload>;
         },
     };
 }

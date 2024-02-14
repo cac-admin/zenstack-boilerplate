@@ -30,6 +30,20 @@ export function useMutateCodeRun() {
         );
     }
 
+    /** @deprecated Use `useCreateManyCodeRun` hook instead. */
+    async function createManyCodeRun<T extends Prisma.CodeRunCreateManyArgs>(
+        args: Prisma.SelectSubset<T, Prisma.CodeRunCreateManyArgs>,
+    ) {
+        return await request.mutationRequest<Prisma.BatchPayload, false>(
+            'POST',
+            `${endpoint}/codeRun/createMany`,
+            args,
+            invalidate,
+            fetch,
+            false,
+        );
+    }
+
     /** @deprecated Use `useUpdateCodeRun` hook instead. */
     async function updateCodeRun<T extends Prisma.CodeRunUpdateArgs>(
         args: Prisma.SelectSubset<T, Prisma.CodeRunUpdateArgs>,
@@ -99,7 +113,15 @@ export function useMutateCodeRun() {
             false,
         );
     }
-    return { createCodeRun, updateCodeRun, updateManyCodeRun, upsertCodeRun, deleteCodeRun, deleteManyCodeRun };
+    return {
+        createCodeRun,
+        createManyCodeRun,
+        updateCodeRun,
+        updateManyCodeRun,
+        upsertCodeRun,
+        deleteCodeRun,
+        deleteManyCodeRun,
+    };
 }
 
 export function useCreateCodeRun(
@@ -114,6 +136,20 @@ export function useCreateCodeRun(
         ...mutation,
         trigger: <T extends Prisma.CodeRunCreateArgs>(args: Prisma.SelectSubset<T, Prisma.CodeRunCreateArgs>) => {
             return mutation.trigger(args, options as any) as Promise<Prisma.CodeRunGetPayload<T> | undefined>;
+        },
+    };
+}
+
+export function useCreateManyCodeRun(
+    options?: MutationOptions<Prisma.BatchPayload, unknown, Prisma.CodeRunCreateManyArgs>,
+) {
+    const mutation = request.useModelMutation('CodeRun', 'POST', 'createMany', metadata, options, false);
+    return {
+        ...mutation,
+        trigger: <T extends Prisma.CodeRunCreateManyArgs>(
+            args: Prisma.SelectSubset<T, Prisma.CodeRunCreateManyArgs>,
+        ) => {
+            return mutation.trigger(args, options as any) as Promise<Prisma.BatchPayload>;
         },
     };
 }

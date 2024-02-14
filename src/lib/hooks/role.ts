@@ -28,6 +28,20 @@ export function useMutateRole() {
         );
     }
 
+    /** @deprecated Use `useCreateManyRole` hook instead. */
+    async function createManyRole<T extends Prisma.RoleCreateManyArgs>(
+        args: Prisma.SelectSubset<T, Prisma.RoleCreateManyArgs>,
+    ) {
+        return await request.mutationRequest<Prisma.BatchPayload, false>(
+            'POST',
+            `${endpoint}/role/createMany`,
+            args,
+            invalidate,
+            fetch,
+            false,
+        );
+    }
+
     /** @deprecated Use `useUpdateRole` hook instead. */
     async function updateRole<T extends Prisma.RoleUpdateArgs>(args: Prisma.SelectSubset<T, Prisma.RoleUpdateArgs>) {
         return await request.mutationRequest<Prisma.RoleGetPayload<Prisma.RoleUpdateArgs> | undefined, true>(
@@ -91,7 +105,7 @@ export function useMutateRole() {
             false,
         );
     }
-    return { createRole, updateRole, updateManyRole, upsertRole, deleteRole, deleteManyRole };
+    return { createRole, createManyRole, updateRole, updateManyRole, upsertRole, deleteRole, deleteManyRole };
 }
 
 export function useCreateRole(
@@ -102,6 +116,16 @@ export function useCreateRole(
         ...mutation,
         trigger: <T extends Prisma.RoleCreateArgs>(args: Prisma.SelectSubset<T, Prisma.RoleCreateArgs>) => {
             return mutation.trigger(args, options as any) as Promise<Prisma.RoleGetPayload<T> | undefined>;
+        },
+    };
+}
+
+export function useCreateManyRole(options?: MutationOptions<Prisma.BatchPayload, unknown, Prisma.RoleCreateManyArgs>) {
+    const mutation = request.useModelMutation('Role', 'POST', 'createMany', metadata, options, false);
+    return {
+        ...mutation,
+        trigger: <T extends Prisma.RoleCreateManyArgs>(args: Prisma.SelectSubset<T, Prisma.RoleCreateManyArgs>) => {
+            return mutation.trigger(args, options as any) as Promise<Prisma.BatchPayload>;
         },
     };
 }
