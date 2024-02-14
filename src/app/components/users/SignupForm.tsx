@@ -29,7 +29,7 @@ export default function SignupForm() {
                     if (email && password) {
                         try {
                             signup({ data: { email, password } });
-                        } catch (err: any) {
+                        } catch (err: unknown) {
                             setErr("An error occured, please try again with different credentials.");
                         }
                     } else {
@@ -59,7 +59,7 @@ export default function SignupForm() {
                     />
                 </form>
                 :
-                <p>You're signed up! <Link href="/api/auth/signin">Log in</Link>.</p>}
+                <p>You&apos;re signed up! <Link href="/api/auth/signin">Log in</Link>.</p>}
             {err !== '' && <p className="w-full rounded-3xl px-4 py-2 my-2 bg-[#15162c] text-red-500">{err}</p>}
         </div>
     );

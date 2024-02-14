@@ -64,7 +64,7 @@ export default function CompleteRegistrationForm() {
                     className="w-full rounded-full px-4 py-2 my-2 text-black"
                     required
                 />
-                <label htmlFor="netid">Queen's Student NetID</label>
+                <label htmlFor="netid">Queen&apos;s Student NetID</label>
                 <input
                     type="text"
                     name="netid"
@@ -73,7 +73,7 @@ export default function CompleteRegistrationForm() {
                     className="w-full rounded-full px-4 py-2 my-2 text-black"
                     required
                 />
-                <label htmlFor="student_number">Queen's Student Number</label>
+                <label htmlFor="student_number">Queen&apos;s Student Number</label>
                 <input
                     type="number"
                     defaultValue={user?.student_number ?? undefined}
@@ -95,7 +95,7 @@ export default function CompleteRegistrationForm() {
                     className="w-full rounded-full px-4 py-2 my-2 bg-white/10"
                 />
             </form>
-            {updateMe.error && updateMe.error.shape?.data.zodError?.fieldErrors["image"]?.map((e) => (<p className="text-red-500" key={e}>{e}</p>))}
+            {updateMe.error?.shape?.data.zodError?.fieldErrors?.image?.map((e) => (<p className="text-red-500" key={e}>{e}</p>))}
         </div>
     );
 }

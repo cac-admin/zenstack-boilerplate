@@ -45,7 +45,7 @@ export default function NewLessonForm() {
                         <div className="container flex flex-row items-center">
                             <label htmlFor="subject" className="px-4 py-2 my-2">Subject</label>
                             <select name="subject" className="rounded-full px-4 py-2 my-2 bg-white/10" required>
-                                {subjects?.map((sub) => <option value={sub.name}>{sub.name}</option>)}
+                                {subjects?.map((sub) => <option key={sub.name} value={sub.name}>{sub.name}</option>)}
                             </select>
                         </div>
                         <input

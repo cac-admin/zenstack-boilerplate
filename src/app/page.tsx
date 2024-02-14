@@ -23,15 +23,15 @@ export default async function Home() {
                             <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
                                 Complete your registration.
                             </h1>
-                            <p>There's still some more info we need from you before you can start your learning.</p>
+                            <p>There&apos;s still some more info we need from you before you can start your learning.</p>
                             <CompleteRegistrationForm />
                         </>
                     :
                     <>
                         <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-                            Welcome to Ethan's Online Training Platform.
+                            Welcome to Ethan&apos;s Online Training Platform.
                         </h1>
-                        <p>Create an account to get started, or log in if you're an existing user.</p>
+                        <p>Create an account to get started, or log in if you&apos;re an existing user.</p>
                     </>
             }
         </div>

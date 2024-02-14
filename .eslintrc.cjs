@@ -13,25 +13,18 @@ const config = {
     plugins: ["@typescript-eslint"],
     extends: [
         "next/core-web-vitals",
-        "prettier:@typescript-eslint",
         "plugin:@typescript-eslint/recommended-type-checked",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
-        "plugin:@typescript-eslint/stylistic-type-checked",
+        "plugin:@typescript-eslint/stylistic-type-checked"
     ],
+    ignorePatterns: ["./src/lib/*.ts", "./src/server/routers/generated/*.ts"],
     rules: {
         // These opinionated rules are enabled in stylistic-type-checked above.
         // Feel free to reconfigure them to your own preference.
         "@typescript-eslint/array-type": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-unescaped-entities": "off",
         "@typescript-eslint/consistent-type-definitions": "off",
-
-        "@typescript-eslint/consistent-type-imports": [
-            "warn",
-            {
-                prefer: "type-imports",
-                fixStyle: "inline-type-imports",
-            },
-        ],
-        "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
         "@typescript-eslint/require-await": "off",
         "@typescript-eslint/no-misused-promises": [
             "error",

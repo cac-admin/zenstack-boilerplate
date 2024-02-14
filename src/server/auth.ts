@@ -1,5 +1,4 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { PrismaClient } from "@prisma/client/extension";
 import {
     getServerSession,
     type DefaultSession,
@@ -9,8 +8,7 @@ import {
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "~/server/db";
 import { compare } from 'bcryptjs';
-import { Role } from "@prisma/client";
-import { DefaultJWT } from "next-auth/jwt";
+import { PrismaClient, Role } from "@prisma/client";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -68,16 +66,10 @@ function authorize(prisma: PrismaClient) {
         if (!creds.email) throw new Error('Missing email.');
         if (!creds.password) throw new Error('Missing password.');
 
-        const user = await prisma.user.findFirst({
-            where: { email: creds.email },
-        });
-
-        if (!user || !user.password) return null;
-
+        const user = await prisma.user.findFirst({ where: { email: creds.email }, });
+        if (!user?.password) return null;
         const valid = await compare(creds.password, user.password);
-
         if (!valid) return null;
-
         return user;
     }
 }

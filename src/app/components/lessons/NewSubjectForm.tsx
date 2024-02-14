@@ -18,9 +18,9 @@ export default function NewSubjectForm() {
                         return;
                     }
                     try {
-                        mutate({ data: { name } });
+                        await mutate({ data: { name } });
                     }
-                    catch (e: any) {
+                    catch (e: unknown) {
                         setErr(JSON.stringify(e));
                     }
                 }}>
