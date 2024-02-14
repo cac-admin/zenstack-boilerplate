@@ -54,6 +54,7 @@ export default function EditLessonForm({ lesson, setLesson }: {
                         <label htmlFor="subject" className="pr-4 py-2 my-2">Subject</label>
                         <select name="subject" defaultValue={lesson.subName} className="rounded-full px-4 py-2 my-2 bg-white/10" required>
                             {
+                                // @ts-expect-error This is giving any in prod for some reason.
                                 subjects.map((sub) => <option key={sub.name} value={sub.name}>{sub.name}</option>)
                             }
                         </select>
