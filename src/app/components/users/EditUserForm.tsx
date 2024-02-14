@@ -44,7 +44,7 @@ export default function EditUserForm({ user, setUser }: {
 
                         <div className="container flex flex-row" key={role.id} >
                             <label htmlFor={role.name} className="pr-4 py-2 my-2">{role.name}</label>
-                            <input type="checkbox" name={role.name} defaultChecked={user.roles?.find((r) => r.id = role.id) !== undefined} className="rounded-full px-4 py-2 my-2 bg-white/10" />
+                            <input type="checkbox" name={role.name} defaultChecked={user.roles?.find((r) => r.id = role.id) !== undefined} className="w-5 h-5 rounded-full px-4 py-2 my-2 bg-white/10" />
                         </div>)}
                 </div>
                 {isLoading ?
