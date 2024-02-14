@@ -6,6 +6,12 @@ plugin hooks {
     output = "./src/lib/hooks"
 }
 
+plugin zod {
+  provider = '@core/zod'
+  output = './src/lib/zod'
+  compile = false
+}
+
 plugin trpc {
     provider = '@zenstackhq/trpc'
     output = 'src/server/routers/generated'
@@ -82,7 +88,7 @@ model Lesson {
     subject Subject @relation(fields: [subName], references: [name], onDelete: Cascade)
     subName String
     authorId String
-    content String
+    content Bytes
 
     @@allow('read', true)
     @@allow('create', auth().roles?[permissions?[name == 'create_lesson']])

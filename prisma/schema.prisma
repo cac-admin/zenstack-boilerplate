@@ -76,7 +76,7 @@ model Lesson {
     subject Subject @relation(fields: [subName], references: [name], onDelete: Cascade)
     subName String
     authorId String
-    content String
+    content Bytes
 }
 
 model Account {

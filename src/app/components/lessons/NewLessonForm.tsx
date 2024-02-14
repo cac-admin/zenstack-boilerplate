@@ -37,7 +37,7 @@ export default function NewLessonForm() {
                         data: {
                             authorId: user.id,
                             subName: subject,
-                            content: content
+                            content: Buffer.from(content)
                         }
                     });
                 }}>

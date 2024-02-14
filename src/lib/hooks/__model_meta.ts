@@ -214,7 +214,7 @@ const metadata = {
             },
             content: {
                 name: 'content',
-                type: 'String',
+                type: 'Bytes',
             },
         },
         account: {

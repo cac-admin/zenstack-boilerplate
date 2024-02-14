@@ -12,10 +12,10 @@ export default function EditLessonForm({ lesson, setLesson }: {
     const { mutate: updateLesson, error, isLoading: isUpdating } = api.zen.lesson.update.useMutation();
     const { data: user, isLoading } = api.user.getMe.useQuery();
     const { data: subjects, isLoading: isSubLoading } = api.zen.subject.findMany.useQuery({});
-    const [val, setVal] = useState<string | undefined>(lesson.content);
+    const [val, setVal] = useState<string | undefined>(lesson.content.toString());
 
     useEffect(() => {
-        setVal(lesson.content);
+        setVal(lesson.content.toString());
     }, [lesson]);
 
     if (isLoading || isSubLoading || subjects === undefined) {
@@ -41,13 +41,13 @@ export default function EditLessonForm({ lesson, setLesson }: {
                 updateLesson({
                     data: {
                         subName: subject,
-                        content: val
+                        content: Buffer.from(val)
                     },
                     where: {
                         id: lesson.id
                     }
                 });
-                setLesson({ ...lesson, content: val });
+                setLesson({ ...lesson, content: Buffer.from(val) });
             }}>
                 <div className="flex flex-row justify-between content-between">
                     <div className="container flex flex-row">
