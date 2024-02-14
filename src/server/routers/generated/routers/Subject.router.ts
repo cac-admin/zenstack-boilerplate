@@ -12,6 +12,10 @@ export default function createRouter<Config extends BaseConfig>(
             .input($Schema.SubjectInputSchema.aggregate)
             .query(({ ctx, input }) => checkRead(db(ctx).subject.aggregate(input as any))),
 
+        createMany: procedure
+            .input($Schema.SubjectInputSchema.createMany)
+            .mutation(async ({ ctx, input }) => checkMutate(db(ctx).subject.createMany(input as any))),
+
         create: procedure
             .input($Schema.SubjectInputSchema.create)
             .mutation(async ({ ctx, input }) => checkMutate(db(ctx).subject.create(input as any))),

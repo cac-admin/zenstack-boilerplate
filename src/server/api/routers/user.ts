@@ -57,9 +57,9 @@ export const userRouter = createTRPCRouter({
                 });
 
                 try {
-                    const resp = await client.send(command);
-                } catch (e: any) {
-                    console.log(`Error: ${e}`);
+                    await client.send(command);
+                } catch (e: unknown) {
+                    console.log(e);
                 }
 
                 return ctx.prisma.user.update({

@@ -22,9 +22,9 @@ export default async function MyAccount() {
                 :
                 <>
                     <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-                        Welcome to Ethan's Online Training Platform.
+                        Welcome to Ethan&apos;s Online Training Platform.
                     </h1>
-                    <p>Create an account to get started, or log in if you're returning</p>
+                    <p>Create an account to get started, or log in if you&apos;re returning</p>
                 </>
             }
         </div>

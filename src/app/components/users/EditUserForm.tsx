@@ -35,7 +35,7 @@ export default function EditUserForm({ user, setUser }: {
                         }
                     });
                 }
-                catch (e: any) {
+                catch (e: unknown) {
                     console.error(e);
                 }
             }}>

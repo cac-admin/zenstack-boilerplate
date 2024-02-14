@@ -26,6 +26,20 @@ export function useMutatePermission() {
         >('POST', `${endpoint}/permission/create`, args, invalidate, fetch, true);
     }
 
+    /** @deprecated Use `useCreateManyPermission` hook instead. */
+    async function createManyPermission<T extends Prisma.PermissionCreateManyArgs>(
+        args: Prisma.SelectSubset<T, Prisma.PermissionCreateManyArgs>,
+    ) {
+        return await request.mutationRequest<Prisma.BatchPayload, false>(
+            'POST',
+            `${endpoint}/permission/createMany`,
+            args,
+            invalidate,
+            fetch,
+            false,
+        );
+    }
+
     /** @deprecated Use `useUpdatePermission` hook instead. */
     async function updatePermission<T extends Prisma.PermissionUpdateArgs>(
         args: Prisma.SelectSubset<T, Prisma.PermissionUpdateArgs>,
@@ -85,6 +99,7 @@ export function useMutatePermission() {
     }
     return {
         createPermission,
+        createManyPermission,
         updatePermission,
         updateManyPermission,
         upsertPermission,
@@ -105,6 +120,20 @@ export function useCreatePermission(
         ...mutation,
         trigger: <T extends Prisma.PermissionCreateArgs>(args: Prisma.SelectSubset<T, Prisma.PermissionCreateArgs>) => {
             return mutation.trigger(args, options as any) as Promise<Prisma.PermissionGetPayload<T> | undefined>;
+        },
+    };
+}
+
+export function useCreateManyPermission(
+    options?: MutationOptions<Prisma.BatchPayload, unknown, Prisma.PermissionCreateManyArgs>,
+) {
+    const mutation = request.useModelMutation('Permission', 'POST', 'createMany', metadata, options, false);
+    return {
+        ...mutation,
+        trigger: <T extends Prisma.PermissionCreateManyArgs>(
+            args: Prisma.SelectSubset<T, Prisma.PermissionCreateManyArgs>,
+        ) => {
+            return mutation.trigger(args, options as any) as Promise<Prisma.BatchPayload>;
         },
     };
 }

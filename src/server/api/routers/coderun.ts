@@ -27,7 +27,7 @@ export const codeRunRouter = createTRPCRouter({
 
                 try {
                     execSync('gcc ./test.c');
-                } catch (e: any) {
+                } catch (e: unknown) {
                     console.log(e);
                     return e;
                 }
@@ -41,7 +41,7 @@ export const codeRunRouter = createTRPCRouter({
                     }
                     const end = process.hrtime();
                     return `Time (ns): ${end[1] - start[1]}`;
-                } catch (e: any) {
+                } catch (e: unknown) {
                     console.log(e);
                     return e;
                 }

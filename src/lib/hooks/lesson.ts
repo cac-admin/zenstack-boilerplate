@@ -30,6 +30,20 @@ export function useMutateLesson() {
         );
     }
 
+    /** @deprecated Use `useCreateManyLesson` hook instead. */
+    async function createManyLesson<T extends Prisma.LessonCreateManyArgs>(
+        args: Prisma.SelectSubset<T, Prisma.LessonCreateManyArgs>,
+    ) {
+        return await request.mutationRequest<Prisma.BatchPayload, false>(
+            'POST',
+            `${endpoint}/lesson/createMany`,
+            args,
+            invalidate,
+            fetch,
+            false,
+        );
+    }
+
     /** @deprecated Use `useUpdateLesson` hook instead. */
     async function updateLesson<T extends Prisma.LessonUpdateArgs>(
         args: Prisma.SelectSubset<T, Prisma.LessonUpdateArgs>,
@@ -99,7 +113,15 @@ export function useMutateLesson() {
             false,
         );
     }
-    return { createLesson, updateLesson, updateManyLesson, upsertLesson, deleteLesson, deleteManyLesson };
+    return {
+        createLesson,
+        createManyLesson,
+        updateLesson,
+        updateManyLesson,
+        upsertLesson,
+        deleteLesson,
+        deleteManyLesson,
+    };
 }
 
 export function useCreateLesson(
@@ -114,6 +136,18 @@ export function useCreateLesson(
         ...mutation,
         trigger: <T extends Prisma.LessonCreateArgs>(args: Prisma.SelectSubset<T, Prisma.LessonCreateArgs>) => {
             return mutation.trigger(args, options as any) as Promise<Prisma.LessonGetPayload<T> | undefined>;
+        },
+    };
+}
+
+export function useCreateManyLesson(
+    options?: MutationOptions<Prisma.BatchPayload, unknown, Prisma.LessonCreateManyArgs>,
+) {
+    const mutation = request.useModelMutation('Lesson', 'POST', 'createMany', metadata, options, false);
+    return {
+        ...mutation,
+        trigger: <T extends Prisma.LessonCreateManyArgs>(args: Prisma.SelectSubset<T, Prisma.LessonCreateManyArgs>) => {
+            return mutation.trigger(args, options as any) as Promise<Prisma.BatchPayload>;
         },
     };
 }
