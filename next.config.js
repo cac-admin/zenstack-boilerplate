@@ -9,9 +9,6 @@ const config = {
     experimental: {
         serverComponentsExternalPackages: ['@zenstackhq/runtime']
     },
-    eslint: {
-        ignoreDuringBuilds: true
-    },
     images: {
         remotePatterns: [
             {
