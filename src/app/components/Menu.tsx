@@ -1,6 +1,6 @@
 import { unstable_noStore as noStore } from "next/cache";
 import { getServerAuthSession } from "~/server/auth";
-import { UserMenuPopover } from "./UserMenuPopover";
+import { UserMenuPopover } from "~/app/components/users/UserMenuPopover";
 import Link from "next/link";
 
 export default async function Menu() {

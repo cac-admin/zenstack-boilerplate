@@ -15,7 +15,7 @@ export const userRouter = createTRPCRouter({
     getMe: publicProcedure
         .query(({ ctx }) => {
             if (ctx.session) {
-                return ctx.db.user.findUnique({ where: { id: ctx.session.user.id }, include: { roles: { include: { permissions: true } } } });
+                return ctx.prisma.user.findUnique({ where: { id: ctx.session.user.id }, include: { roles: { include: { permissions: true } } } });
             } else {
                 return null;
             }
@@ -62,7 +62,7 @@ export const userRouter = createTRPCRouter({
                     console.log(`Error: ${e}`);
                 }
 
-                return ctx.db.user.update({
+                return ctx.prisma.user.update({
                     data: {
                         name: input.name,
                         netid: input.netid,
@@ -75,7 +75,7 @@ export const userRouter = createTRPCRouter({
                     }
                 });
             } else {
-                return ctx.db.user.update({
+                return ctx.prisma.user.update({
                     data: {
                         name: input.name,
                         netid: input.netid,

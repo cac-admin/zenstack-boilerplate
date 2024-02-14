@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useCreateSubject } from "~/lib/hooks";
 
-export default function NewSubject() {
+export default function NewSubjectForm() {
     const { trigger: mutate } = useCreateSubject();
     const [err, setErr] = useState<string | undefined>();
 

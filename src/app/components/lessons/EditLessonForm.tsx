@@ -5,7 +5,7 @@ import { Lesson } from "@prisma/client";
 import Link from "next/link";
 import Spinner from "../Spinner";
 
-export default function EditLesson({ lesson, setLesson }: {
+export default function EditLessonForm({ lesson, setLesson }: {
     lesson: Lesson
     setLesson: Dispatch<SetStateAction<Lesson | undefined>>
 }) {

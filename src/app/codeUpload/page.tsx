@@ -1,5 +1,5 @@
 import { getServerAuthSession } from "~/server/auth";
-import CodeUploader from "~/app/components/forms/CodeUploader";
+import CodeUploadForm from "~/app/components/CodeUploadForm";
 
 export default async function Uploader() {
     const session = await getServerAuthSession();
@@ -7,7 +7,7 @@ export default async function Uploader() {
     if (session?.user) {
         return (
             <div>
-                <CodeUploader />
+                <CodeUploadForm />
             </div>
         );
     } else {

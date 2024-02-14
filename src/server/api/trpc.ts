@@ -13,7 +13,7 @@ import superjson from "superjson";
 import { ZodError } from "zod";
 
 import { getServerAuthSession } from "~/server/auth";
-import { db } from "~/server/db";
+import { prisma } from "~/server/db";
 
 /**
  * 1. CONTEXT
@@ -31,7 +31,7 @@ export const createTRPCContext = async (opts: { headers: Headers }) => {
     const session = await getServerAuthSession();
 
     return {
-        db: enhance(db, { user: session?.user }),
+        prisma: enhance(prisma, { user: session?.user }),
         session,
         ...opts,
     };

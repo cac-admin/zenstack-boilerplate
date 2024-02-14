@@ -1,9 +1,9 @@
 'use client'
 
 import { api } from "~/trpc/react";
-import Spinner from "../Spinner";
+import Spinner from "~/app/components/Spinner";
 
-export default function CompleteRegistration() {
+export default function CompleteRegistrationForm() {
     const updateMe = api.user.updateMe.useMutation();
     const { data: user, isLoading } = api.user.getMe.useQuery();
 

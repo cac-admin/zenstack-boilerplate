@@ -7,7 +7,7 @@ import {
     DefaultUser,
 } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { db } from "~/server/db";
+import { prisma } from "~/server/db";
 import { compare } from 'bcryptjs';
 import { Role } from "@prisma/client";
 import { DefaultJWT } from "next-auth/jwt";
@@ -44,20 +44,20 @@ export const authOptions: NextAuthOptions = {
         async session({ session, token }) {
             if (session.user) {
                 session.user.id = token.sub!;
-                const user = await db.user.findFirst({ where: { id: token.sub! }, include: { roles: { include: { permissions: true } } } });
+                const user = await prisma.user.findFirst({ where: { id: token.sub! }, include: { roles: { include: { permissions: true } } } });
                 session.user.roles = user?.roles;
             }
             return session;
         },
     },
-    adapter: PrismaAdapter(db),
+    adapter: PrismaAdapter(prisma),
     providers: [
         CredentialsProvider({
             credentials: {
                 email: { type: 'email' },
                 password: { type: 'password' },
             },
-            authorize: authorize(db),
+            authorize: authorize(prisma),
         }),
     ],
 };

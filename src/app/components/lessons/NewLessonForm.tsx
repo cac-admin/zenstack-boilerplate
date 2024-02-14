@@ -2,7 +2,7 @@ import { useCreateLesson, useFindManySubject } from "~/lib/hooks";
 import { api } from "~/trpc/react";
 import MDEditor, { commands } from "@uiw/react-md-editor";
 import { useState } from "react";
-import NewSubject from "./NewSubject";
+import NewSubjectForm from "./NewSubjectForm";
 import Spinner from "../Spinner";
 
 export default function NewLessonForm() {
@@ -21,7 +21,7 @@ export default function NewLessonForm() {
 
     return (
         <div className="container flex flex-col p-4 gap-4">
-            <NewSubject />
+            <NewSubjectForm />
             <div className="container rounded-3xl px-0 py-4 gap-4 flex flex-col w-11/12 bg-white/10">
                 {error !== undefined && <p>{JSON.stringify(error)}</p>}
                 <form onSubmit={async (e) => {

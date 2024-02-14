@@ -1,10 +1,10 @@
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "./ui/command"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "~/app/components/ui/command"
 import { Dispatch, SetStateAction } from "react";
 import { Lesson } from "@prisma/client";
 import { api } from "~/trpc/react";
-import Spinner from "./Spinner";
+import Spinner from "~/app/components/Spinner";
 
-export default function Lessons(
+export default function LessonList(
     { selected, setSelected }:
         {
             selected: Lesson | undefined,

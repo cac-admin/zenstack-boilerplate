@@ -1,5 +1,5 @@
 import { getServerAuthSession } from "~/server/auth";
-import SignupForm from "~/app/components/forms/Signup";
+import SignupForm from "~/app/components/users/SignupForm";
 
 export default async function Signup() {
     const session = await getServerAuthSession();

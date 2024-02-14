@@ -1,8 +1,8 @@
 'use client'
 
-import NewLessonForm from "~/app/components/forms/NewLesson";
+import NewLessonForm from "~/app/components/lessons/NewLessonForm";
 
-export default function Learning() {
+export default function NewLesson() {
     return (
         <NewLessonForm />
     );

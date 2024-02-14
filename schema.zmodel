@@ -46,7 +46,8 @@ model Role {
     users User[]
 
     @@allow('read', true)
-    @@allow('all', auth().roles?[permissions?[name == 'edit_roles']])
+    @@allow('update', auth().roles?[permissions?[name == 'modify_role']])
+    @@allow('create', auth().roles?[permissions?[name == 'create_role']])
 }
 
 model Permission {

@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Button } from "./ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "~/app/components/ui/popover";
+import { Button } from "~/app/components/ui/button";
 import { api } from "~/trpc/react";
 
 export function UserMenuPopover() {
@@ -26,6 +26,8 @@ export function UserMenuPopover() {
                 <div className="container flex flex-col gap-4">
                     <Link href="/account" className="rounded-full flex flex-row items-center justify-center bg-white/10 px-2 py-2 font-semibold no-underline transition hover:bg-white/20">My Account</Link>
                     <Link href="/lessons" className="rounded-full flex flex-row items-center justify-center bg-white/10 px-2 py-2 font-semibold no-underline transition hover:bg-white/20">Manage Lessons</Link>
+                    <Link href="/account/manage" className="rounded-full flex flex-row items-center justify-center bg-white/10 px-2 py-2 font-semibold no-underline transition hover:bg-white/20">Manage Users</Link>
+                    <Link href="/api/auth/signout" className="rounded-full flex flex-row items-center justify-center bg-white/20 px-2 py-2 font-semibold no-underline transition hover:bg-white/30">Logout</Link>
                 </div>
             </PopoverContent>
         </Popover >

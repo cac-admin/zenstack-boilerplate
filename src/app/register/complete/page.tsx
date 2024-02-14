@@ -1,4 +1,4 @@
-import CompleteRegistrationForm from "~/app/components/forms/CompleteRegistration";
+import CompleteRegistrationForm from "~/app/components/users/CompleteRegistrationForm";
 import { getServerAuthSession } from "~/server/auth";
 
 export default async function CompleteRegistration() {

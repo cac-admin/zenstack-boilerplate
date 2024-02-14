@@ -1,17 +1,25 @@
 'use client'
 
 import Link from "next/link";
-import { useCreateUser } from "~/lib/hooks";
 import { useState } from "react";
+import { api } from "~/trpc/react";
+import Spinner from "~/app/components/Spinner";
 
 export default function SignupForm() {
-    const { trigger: signup } = useCreateUser();
+    const { mutate: signup, isLoading, isSuccess } = api.zen.user.create.useMutation();
     const [err, setErr] = useState<string>('');
-    const [succ, setSucc] = useState<boolean>(false);
+
+    if (isLoading) {
+        return (
+            <div className="w-max flex items-center rounded-3xl px-4 py-2 my-2 bg-white/10">
+                <Spinner className="w-6 h-6 place-self-center" />
+            </div>
+        );
+    }
 
     return (
         <div className="w-full rounded-3xl px-4 py-2 flex flex-col max-w-xs bg-white/10">
-            {!succ ?
+            {!isSuccess ?
                 <form onSubmit={async (e) => {
                     e.preventDefault();
                     const data = new FormData(e.currentTarget);
@@ -20,8 +28,7 @@ export default function SignupForm() {
 
                     if (email && password) {
                         try {
-                            await signup({ data: { email, password } });
-                            setSucc(true);
+                            signup({ data: { email, password } });
                         } catch (err: any) {
                             setErr("An error occured, please try again with different credentials.");
                         }

@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
-import { connect } from "http2";
 
 const prisma = new PrismaClient();
 
@@ -17,8 +16,16 @@ async function main() {
     const lessonCreate = await prisma.permission.create({
         data: { name: "create_lesson" }
     });
-    const modLesson = await prisma.permission.create({
+    const lessonMod = await prisma.permission.create({
         data: { name: "modify_lesson" }
+    });
+
+    // Role permissions.
+    const roleCreate = await prisma.permission.create({
+        data: { name: "create_role" }
+    });
+    const roleMod = await prisma.permission.create({
+        data: { name: "modify_role" }
     });
 
     // Create roles.
@@ -29,8 +36,10 @@ async function main() {
                 connect: [
                     { id: subCreate.id },
                     { id: subMod.id },
+                    { id: roleCreate.id },
+                    { id: roleMod.id },
                     { id: lessonCreate.id },
-                    { id: modLesson.id }
+                    { id: lessonMod.id },
                 ]
             }
         }
