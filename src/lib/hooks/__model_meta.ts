@@ -402,9 +402,7 @@ const metadata = {
             },
         },
     },
-    deleteCascade: {
-        user: ['Account', 'Session'],
-    },
+    deleteCascade: {},
     authModel: 'User',
 };
 export default metadata;

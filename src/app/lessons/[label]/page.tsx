@@ -10,11 +10,14 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: { params: { label: string } }) {
-    const lesson = await prisma.lesson.findFirst({ where: { id: params.label } });
+    const lesson = await prisma.lesson.findFirst({ where: { id: params.label }, include: { author: true } });
 
     if (!lesson) return <></>;
 
     return (
-        <MDViewer value={lesson.content} />
+        <>
+            <MDViewer value={lesson.content.toString()} />
+            <p>Written by {lesson.author?.name}</p>
+        </>
     );
 }
