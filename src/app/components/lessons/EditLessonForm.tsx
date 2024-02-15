@@ -18,7 +18,7 @@ export default function EditLessonForm({ lesson, setLesson }: {
         setVal(lesson.content.toString());
     }, [lesson]);
 
-    if (isLoading || isSubLoading || subjects === undefined) {
+    if (isLoading || isSubLoading) {
         return (
             <div className="w-max flex items-center rounded-3xl px-4 py-2 my-2 bg-white/10">
                 <Spinner className="w-6 h-6 place-self-center" />
@@ -53,9 +53,7 @@ export default function EditLessonForm({ lesson, setLesson }: {
                     <div className="container flex flex-row">
                         <label htmlFor="subject" className="pr-4 py-2 my-2">Subject</label>
                         <select name="subject" defaultValue={lesson.subName} className="rounded-full px-4 py-2 my-2 bg-white/10" required>
-                            {
-                                subjects.map((sub) => <option key={sub.name} value={sub.name}>{sub.name}</option>)
-                            }
+                            {subjects?.map((sub) => <option key={sub.name} value={sub.name}>{sub.name}</option>)}
                         </select>
                     </div>
                     <div className="container flex flex-row content-center justify-end gap-4">
