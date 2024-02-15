@@ -31,7 +31,7 @@ export default function LessonList(
                         lessons?.map(
                             (lesson) => {
                                 return <CommandItem key={lesson.id} onSelect={() => setSelected(lesson)}>{
-                                    /# .*/.exec(lesson.content.toString()) ?? lesson.id}</CommandItem>;
+                                    /# .*/.exec(lesson.content) ?? lesson.id}</CommandItem>;
                             }
                         )
                     }

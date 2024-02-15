@@ -14,7 +14,7 @@ export default function Lessons() {
             <div className="w-full flex flex-row items-center justify-between">
                 <h1 className="text-3xl font-bold sm:text-[5rem]">
                     Lessons</h1>
-                <Link href="/lessons/new" className="w-max rounded-full px-4 py-2 my-2 flex max-w-s bg-white/10">New Lesson</Link>
+                <Link href="/lessons/new" className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20">New Lesson</Link>
             </div>
             <br />
             <div className="container flex flex-row items-start">

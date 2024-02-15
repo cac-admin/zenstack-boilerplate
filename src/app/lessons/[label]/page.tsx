@@ -16,7 +16,7 @@ export default async function Page({ params }: { params: { label: string } }) {
 
     return (
         <>
-            <MDViewer value={lesson.content.toString()} />
+            <MDViewer value={lesson.content} />
             <p>Written by {lesson.author?.name}</p>
         </>
     );

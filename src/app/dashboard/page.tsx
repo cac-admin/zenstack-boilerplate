@@ -17,7 +17,7 @@ export default function Dashboard() {
                             (lesson) => {
                                 return <CommandItem key={lesson.id}>
                                     <Link href={`/lessons/${lesson.id}`}>
-                                        {/# .*/.exec(lesson.content.toString()) ?? lesson.id}
+                                        {/# .*/.exec(lesson.content) ?? lesson.id}
                                     </Link>
                                 </CommandItem>;
                             }

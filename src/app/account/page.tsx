@@ -15,8 +15,8 @@ export default async function MyAccount() {
                     <p>Edit your account details here.</p>
                     <CompleteRegistrationForm />
                     <div className="container flex flex-row justify-between content-between">
-                        <Link href="/">Back</Link>
-                        <Link href="/api/auth/signout">Logout</Link>
+                        <Link href="/" className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20">Back</Link>
+                        <Link href="/api/auth/signout" className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20">Logout</Link>
                     </div>
                 </>
                 :

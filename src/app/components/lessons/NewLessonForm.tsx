@@ -6,7 +6,7 @@ import NewSubjectForm from "./NewSubjectForm";
 import Spinner from "../Spinner";
 
 export default function NewLessonForm() {
-    const { trigger: createLesson, error } = useCreateLesson();
+    const { mutate: createLesson, error, isLoading: isCreating } = api.zen.lesson.create.useMutation();
     const { data: user, isLoading } = api.user.getMe.useQuery();
     const { data: subjects, isLoading: isSubLoading } = useFindManySubject();
     const [content, setContent] = useState<string | undefined>("# New Lesson\nLorem ipsum yadda yadda yadda.");
@@ -33,11 +33,11 @@ export default function NewLessonForm() {
                         return;
                     }
 
-                    await createLesson({
+                    createLesson({
                         data: {
                             authorId: user.id,
                             subName: subject,
-                            content: Buffer.from(content)
+                            content: content
                         }
                     });
                 }}>
@@ -48,11 +48,15 @@ export default function NewLessonForm() {
                                 {subjects?.map((sub) => <option key={sub.name} value={sub.name}>{sub.name}</option>)}
                             </select>
                         </div>
-                        <input
-                            type="submit"
-                            value="Submit"
-                            className="rounded-full px-4 py-2 my-2 bg-white/10"
-                        />
+                        {!isCreating ?
+                            <input
+                                type="submit"
+                                value="Submit"
+                                className="rounded-full px-4 py-2 my-2 bg-white/10"
+                            />
+                            :
+                            <Spinner className="w-6 h-6 place-self-center" />
+                        }
                     </div>
                 </form>
                 <div className="container min-h-96">

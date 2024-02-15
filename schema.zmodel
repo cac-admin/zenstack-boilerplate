@@ -83,7 +83,7 @@ model Lesson {
     subject Subject @relation(fields: [subName], references: [name])
     subName String
     authorId String
-    content Bytes
+    content String @db.LongText
 
     @@allow('read', true)
     @@allow('create', auth().roles?[permissions?[name == 'create_lesson']])

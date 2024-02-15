@@ -55,11 +55,11 @@ export default function SignupForm() {
                     <input
                         type="submit"
                         value="Submit"
-                        className="w-full rounded-full px-4 py-2 my-2 bg-white/10"
+                        className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
                     />
                 </form>
                 :
-                <p>You&apos;re signed up! <Link href="/api/auth/signin">Log in</Link>.</p>}
+                <p>You&apos;re signed up! <Link href="/api/auth/signin" className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20">Log in</Link>.</p>}
             {err !== '' && <p className="w-full rounded-3xl px-4 py-2 my-2 bg-[#15162c] text-red-500">{err}</p>}
         </div>
     );
