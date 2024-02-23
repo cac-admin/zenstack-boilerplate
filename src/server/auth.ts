@@ -65,20 +65,6 @@ export const authOptions: NextAuthOptions = {
     ],
 };
 
-function authorize(prisma: PrismaClient) {
-    return async (creds: Record<'email' | 'password', string> | undefined) => {
-        if (!creds) throw new Error('Missing credentials.');
-        if (!creds.email) throw new Error('Missing email.');
-        if (!creds.password) throw new Error('Missing password.');
-
-        const user = await prisma.user.findFirst({ where: { email: creds.email }, });
-        if (!user?.password) return null;
-        const valid = await compare(creds.password, user.password);
-        if (!valid) return null;
-        return user;
-    }
-}
-
 /**
  * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
  *
