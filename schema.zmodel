@@ -28,13 +28,12 @@ model User {
     student_number String?
     email         String   @unique
     emailVerified DateTime?
-    password      String @password @omit
     image         String?
     accounts      Account[]
     sessions      Session[]
     codeRuns      CodeRun[]
     lessons       Lesson[]
-    roles         Role[]
+    roles         Role[] @@allow('update', auth().roles?[permissions?[name == 'modify_role']])
 
     @@allow('create,read', true)
     @@allow('update,delete', auth() == this)

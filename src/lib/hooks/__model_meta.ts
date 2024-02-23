@@ -32,10 +32,6 @@ const metadata = {
                 type: 'DateTime',
                 isOptional: true,
             },
-            password: {
-                name: 'password',
-                type: 'String',
-            },
             image: {
                 name: 'image',
                 type: 'String',

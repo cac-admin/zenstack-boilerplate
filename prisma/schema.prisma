@@ -13,6 +13,7 @@ generator client {
     provider = "prisma-client-js"
 }
 
+/// @@allow('update', auth().roles?[permissions?[name == 'modify_role']])
 /// @@allow('create,read', true)
 /// @@allow('update,delete', auth() == this)
 model User {
@@ -22,9 +23,6 @@ model User {
     student_number String?
     email String @unique()
     emailVerified DateTime?
-    /// @password
-    /// @omit
-    password String
     image String?
     accounts Account[]
     sessions Session[]

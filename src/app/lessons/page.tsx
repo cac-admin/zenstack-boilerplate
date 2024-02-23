@@ -1,35 +1,19 @@
-'use client'
+import { getServerAuthSession } from "~/server/auth";
+import NewLessonForm from "../components/lessons/NewLessonForm";
 
-import { useState } from "react";
-import LessonList from "~/app/components/lessons/LessonList";
-import { Lesson } from "@prisma/client";
-import EditLessonForm from "~/app/components/lessons/EditLessonForm";
-import Link from "next/link";
+export default async function ManageLessons() {
+    const session = await getServerAuthSession();
 
-export default function Lessons() {
-    const [selected, setSelected] = useState<Lesson | undefined>();
+    if (session?.user.roles?.find((r) => r.name === "author" || r.name === "admin")) {
+        return (
+            <NewLessonForm />
+        );
+    }
 
     return (
         <div className="w-full flex flex-col gap-4 p-4">
-            <div className="w-full flex flex-row items-center justify-between">
-                <h1 className="text-3xl font-bold sm:text-[5rem]">
-                    Lessons</h1>
-                <Link href="/lessons/new" className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20">New Lesson</Link>
-            </div>
-            <br />
-            <div className="container flex flex-row items-start">
-                <div className="container w-1/4 p-2">
-                    <LessonList selected={selected} setSelected={setSelected} />
-                </div>
-                <div className="container w-3/4">
-                    {selected ?
-                        <EditLessonForm lesson={selected} setLesson={setSelected} />
-                        :
-                        <p className="w-max rounded-full px-4 py-2 my-2 flex max-w-s bg-white/10">
-                            Please select a lesson.</p>
-                    }
-                </div>
-            </div>
+            <p className="w-max rounded-full px-4 py-2 my-2 flex max-w-s bg-white/10">
+                Please select a lesson.</p>
         </div>
     );
 }

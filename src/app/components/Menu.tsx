@@ -17,13 +17,7 @@ export default async function Menu() {
                             href="/api/auth/signin"
                             className="rounded-full bg-[#15162c] px-3 py-2 font-semibold no-underline transition hover:bg-white/20"
                         >
-                            Login
-                        </Link>
-                        <Link
-                            href="/register"
-                            className="rounded-full bg-[#15162c] px-3 py-2 font-semibold no-underline transition hover:bg-white/20"
-                        >
-                            Signup
+                            Login or Register
                         </Link>
                     </>
                 }

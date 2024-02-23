@@ -1,4 +1,5 @@
-import { useCreateLesson, useFindManySubject } from "~/lib/hooks";
+"use client";
+
 import { api } from "~/trpc/react";
 import MDEditor, { commands } from "@uiw/react-md-editor";
 import { useState } from "react";
@@ -8,7 +9,7 @@ import Spinner from "../Spinner";
 export default function NewLessonForm() {
     const { mutate: createLesson, error, isLoading: isCreating } = api.zen.lesson.create.useMutation();
     const { data: user, isLoading } = api.user.getMe.useQuery();
-    const { data: subjects, isLoading: isSubLoading } = useFindManySubject();
+    const { data: subjects, isLoading: isSubLoading } = api.zen.subject.findMany.useQuery({});
     const [content, setContent] = useState<string | undefined>("# New Lesson\nLorem ipsum yadda yadda yadda.");
 
     if (isLoading || isSubLoading) {
@@ -23,7 +24,7 @@ export default function NewLessonForm() {
         <div className="container flex flex-col p-4 gap-4">
             <NewSubjectForm />
             <div className="container rounded-3xl px-0 py-4 gap-4 flex flex-col w-11/12 bg-white/10">
-                {error !== undefined && <p>{JSON.stringify(error)}</p>}
+                {error !== undefined && error !== null && <p>{JSON.stringify(error)}</p>}
                 <form onSubmit={async (e) => {
                     e.preventDefault();
                     const data = new FormData(e.currentTarget);

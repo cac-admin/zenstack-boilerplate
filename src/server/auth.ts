@@ -5,10 +5,11 @@ import {
     type NextAuthOptions,
     DefaultUser,
 } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "~/server/db";
+import EmailProvider from "next-auth/providers/email";
 import { compare } from 'bcryptjs';
 import { PrismaClient, Role } from "@prisma/client";
+import { env } from "~/env";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -50,13 +51,17 @@ export const authOptions: NextAuthOptions = {
     },
     adapter: PrismaAdapter(prisma),
     providers: [
-        CredentialsProvider({
-            credentials: {
-                email: { type: 'email' },
-                password: { type: 'password' },
+        EmailProvider({
+            server: {
+                host: env.EMAIL_HOST,
+                port: env.EMAIL_PORT,
+                auth: {
+                    user: env.EMAIL_USER,
+                    pass: env.RESEND_KEY
+                },
             },
-            authorize: authorize(prisma),
-        }),
+            from: env.EMAIL_FROM
+        })
     ],
 };
 

@@ -26,17 +26,17 @@ export const userRouter = createTRPCRouter({
             netid: z.string(),
             student_number: z.string(),
             image: z.object({
-                data: z.string(),
+                data: z.string().optional(),
                 type: z.string().refine(
                     (tp) => ACCEPTED_TYPES.includes(tp),
                     {
                         message: `Image type not supported. Supported types are: ${ACCEPTED_TYPES.reduce((prev, cur) => `${prev}, ${cur}`)}`,
-                    }),
+                    }).optional(),
                 size: z.number().refine((sz) => sz <= MAX_SIZE)
             }).optional()
         }))
         .mutation(async ({ ctx, input }) => {
-            if (input.image) {
+            if (input.image?.data) {
                 const buf = Buffer.from(input.image.data, 'base64');
 
                 const client = new S3Client({

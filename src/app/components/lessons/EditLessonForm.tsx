@@ -1,25 +1,24 @@
+"use client";
+
 import { api } from "~/trpc/react";
 import MDEditor, { commands } from "@uiw/react-md-editor";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useState } from "react";
 import { Lesson } from "@prisma/client";
 import Link from "next/link";
 import Spinner from "../Spinner";
 import { Button } from "../ui/button";
 
-export default function EditLessonForm({ lesson, setLesson }: {
+export default function EditLessonForm({ lesson }: {
     lesson: Lesson
-    setLesson: Dispatch<SetStateAction<Lesson | undefined>>
 }) {
     const utils = api.useUtils();
-    const { mutate: updateLesson, error, isLoading: isUpdating } = api.zen.lesson.update.useMutation();
+    const { mutate: updateLesson, error, isLoading: isUpdating } = api.zen.lesson.update.useMutation({
+        onSuccess: () => utils.zen.lesson.invalidate()
+    });
     const { mutate: deleteLesson, isLoading: isDeleting } = api.zen.lesson.delete.useMutation();
     const { data: user, isLoading } = api.user.getMe.useQuery();
     const { data: subjects, isLoading: isSubLoading } = api.zen.subject.findMany.useQuery({});
     const [val, setVal] = useState<string | undefined>(lesson.content);
-
-    useEffect(() => {
-        setVal(lesson.content);
-    }, [lesson]);
 
     if (isLoading || isSubLoading) {
         return (
@@ -41,13 +40,12 @@ export default function EditLessonForm({ lesson, setLesson }: {
                         onClick={async () => {
                             deleteLesson({ where: { id: lesson.id } });
                             await utils.zen.lesson.invalidate();
-                            setLesson(undefined);
                         }}>Delete</Button>
                     :
                     <Spinner className="w-6 h-6 place-self-center" />}
             </div>
             {error && <p>{JSON.stringify(error)}</p>}
-            <form onSubmit={(e) => {
+            <form onSubmit={async (e) => {
                 e.preventDefault();
                 const data = new FormData(e.currentTarget);
                 const subject = data.get('subject')?.toString();
@@ -65,7 +63,6 @@ export default function EditLessonForm({ lesson, setLesson }: {
                         id: lesson.id
                     }
                 });
-                setLesson({ ...lesson, content: val });
             }}>
                 <div className="flex flex-row justify-between content-between">
                     <div className="container flex flex-row">
