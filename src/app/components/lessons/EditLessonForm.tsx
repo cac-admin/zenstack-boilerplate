@@ -7,6 +7,7 @@ import { Lesson } from "@prisma/client";
 import Link from "next/link";
 import Spinner from "../Spinner";
 import { Button } from "../ui/button";
+import DeleteLessonForm from "./DeleteLessonForm";
 
 export default function EditLessonForm({ lesson }: {
     lesson: Lesson
@@ -15,7 +16,6 @@ export default function EditLessonForm({ lesson }: {
     const { mutate: updateLesson, error, isLoading: isUpdating } = api.zen.lesson.update.useMutation({
         onSuccess: () => utils.zen.lesson.invalidate()
     });
-    const { mutate: deleteLesson, isLoading: isDeleting } = api.zen.lesson.delete.useMutation();
     const { data: user, isLoading } = api.user.getMe.useQuery();
     const { data: subjects, isLoading: isSubLoading } = api.zen.subject.findMany.useQuery({});
     const [val, setVal] = useState<string | undefined>(lesson.content);
@@ -35,14 +35,7 @@ export default function EditLessonForm({ lesson }: {
                     href={`/lessons/${lesson.id}`}
                     className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
                 >View Lesson</Link>
-                {!isDeleting ?
-                    <Button className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
-                        onClick={async () => {
-                            deleteLesson({ where: { id: lesson.id } });
-                            await utils.zen.lesson.invalidate();
-                        }}>Delete</Button>
-                    :
-                    <Spinner className="w-6 h-6 place-self-center" />}
+                <DeleteLessonForm lesson={lesson} />
             </div>
             {error && <p>{JSON.stringify(error)}</p>}
             <form onSubmit={async (e) => {

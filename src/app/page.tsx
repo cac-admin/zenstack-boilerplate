@@ -3,7 +3,7 @@ import { getServerAuthSession } from "~/server/auth";
 import CompleteRegistrationForm from "~/app/components/users/CompleteRegistrationForm";
 import { api } from "~/trpc/server";
 
-export default async function Home() {
+export default async function Page() {
     noStore();
     const session = await getServerAuthSession();
 

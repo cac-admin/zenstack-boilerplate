@@ -22,7 +22,7 @@ export default async function Menu() {
                     </>
                 }
             </div>
-            <Link href="/dashboard" className="rounded-full flex flex-row items-center justify-center bg-white/10 px-4 py-2 font-semibold no-underline transition hover:bg-white/20">Learning Dashboard</Link>
+            <Link href="/lessons" className="rounded-full flex flex-row items-center justify-center bg-white/10 px-4 py-2 font-semibold no-underline transition hover:bg-white/20">Lessons</Link>
         </div>
     );
 }

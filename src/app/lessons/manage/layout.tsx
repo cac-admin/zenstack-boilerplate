@@ -1,4 +1,3 @@
-
 import LessonList from "~/app/components/lessons/LessonList";
 
 export default function LessonsLayout({
@@ -11,7 +10,7 @@ export default function LessonsLayout({
         <div className="w-full flex flex-col gap-4 p-4">
             <div className="w-full flex flex-row items-center justify-between">
                 <h1 className="text-3xl font-bold sm:text-[5rem]">
-                    Lessons</h1>
+                    Manage Lessons</h1>
             </div>
             <br />
             <div className="container flex flex-row items-start">

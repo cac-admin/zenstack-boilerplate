@@ -21,7 +21,7 @@ export default async function UserList() {
                             (user) => {
                                 return (
                                     <CommandItem key={user.id}>
-                                        <Link href={`/account/manage/${user.id}`}>
+                                        <Link href={`/users/manage/${user.id}`}>
                                             <div className="flex flex-col gap-1 justify-start">
                                                 <p className="text-lg">{user.name}</p>
                                                 <p>{user.email}</p>

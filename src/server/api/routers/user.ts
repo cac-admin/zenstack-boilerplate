@@ -32,7 +32,7 @@ export const userRouter = createTRPCRouter({
                     {
                         message: `Image type not supported. Supported types are: ${ACCEPTED_TYPES.reduce((prev, cur) => `${prev}, ${cur}`)}`,
                     }).optional(),
-                size: z.number().refine((sz) => sz <= MAX_SIZE)
+                size: z.number().refine((sz) => sz <= MAX_SIZE).optional()
             }).optional()
         }))
         .mutation(async ({ ctx, input }) => {

@@ -3,7 +3,7 @@ import { getServerAuthSession } from "~/server/auth";
 import CompleteRegistrationForm from "~/app/components/users/CompleteRegistrationForm";
 import Link from "next/link";
 
-export default async function MyAccount() {
+export default async function Page() {
     noStore();
     const session = await getServerAuthSession();
     return (

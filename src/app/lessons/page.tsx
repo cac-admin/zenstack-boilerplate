@@ -1,19 +1,29 @@
-import { getServerAuthSession } from "~/server/auth";
-import NewLessonForm from "../components/lessons/NewLessonForm";
+import { api } from "~/trpc/server";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "~/app/components/ui/command";
+import Link from "next/link";
 
-export default async function ManageLessons() {
-    const session = await getServerAuthSession();
-
-    if (session?.user.roles?.find((r) => r.name === "author" || r.name === "admin")) {
-        return (
-            <NewLessonForm />
-        );
-    }
-
+export default async function Page() {
+    const lessons = await api.zen.lesson.findMany.query({});
     return (
-        <div className="w-full flex flex-col gap-4 p-4">
-            <p className="w-max rounded-full px-4 py-2 my-2 flex max-w-s bg-white/10">
-                Please select a lesson.</p>
-        </div>
+        <Command>
+            <CommandInput placeholder="Search..." />
+            <CommandList>
+                <CommandEmpty>No lessons found.</CommandEmpty>
+                <CommandGroup heading="Lessons">
+                    {
+                        lessons?.map(
+                            (lesson) => {
+                                return <CommandItem key={lesson.id}>
+                                    <Link href={`/lessons/${lesson.id}`}>
+                                        {/# .*/.exec(lesson.content) ?? lesson.id}
+                                    </Link>
+                                </CommandItem>;
+                            }
+                        )
+                    }
+                </CommandGroup>
+            </CommandList>
+        </Command>
+
     );
 }
