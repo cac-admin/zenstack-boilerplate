@@ -15,7 +15,7 @@ export default async function LessonList() {
                         lessons?.map(
                             (lesson) => {
                                 return (
-                                    <Link href={`/lessons/${lesson.id}`} key={lesson.id}>
+                                    <Link href={`/lessons/manage/${lesson.id}`} key={lesson.id}>
                                         <CommandItem>
                                             {/# .*/.exec(lesson.content) ?? lesson.id}
                                         </CommandItem>

@@ -60,7 +60,7 @@ export default function NewLessonForm() {
                         }
                     </div>
                 </form>
-                <div className="container min-h-96">
+                <div className="container min-h-96" data-color-mode="dark">
                     <MDEditor
                         value={content}
                         onChange={setContent}

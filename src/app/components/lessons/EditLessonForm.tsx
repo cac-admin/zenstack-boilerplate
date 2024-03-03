@@ -31,10 +31,11 @@ export default function EditLessonForm({ lesson }: {
     return (
         <div className="rounded-3xl py-4 gap-4 flex flex-col bg-white/10">
             <div className="container flex flex-row content-center justify-end gap-4">
-                <Link
-                    href={`/lessons/${lesson.id}`}
-                    className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
-                >View Lesson</Link>
+                <Button className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20">
+                    <Link
+                        href={`/lessons/${lesson.id}`}
+                    >View Lesson</Link>
+                </Button>
                 <DeleteLessonForm lesson={lesson} />
             </div>
             {error && <p>{JSON.stringify(error)}</p>}
@@ -77,7 +78,7 @@ export default function EditLessonForm({ lesson }: {
                     </div>
                 </div>
             </form>
-            <div className="container min-h-full">
+            <div className="container min-h-full" data-color-mode="dark">
                 <MDEditor
                     value={val}
                     onChange={setVal}

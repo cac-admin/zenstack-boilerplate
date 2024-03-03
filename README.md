@@ -1,6 +1,49 @@
-# Create T3 App
+# Site Created Using Create T3 App with ZenStack
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## Steps to get started with tRPC and ZenStack
+
+### Initialization Commands
+
+- npx create-t3-app@latest
+    - Use TypeScript
+    - Use tRPC
+    - Use NextAuth
+    - Use Prisma
+    - Use App Router
+    - Use in “prisma” mode for relational database (probably)
+- npx zenstack@latest init
+
+### Install tRPC ZenStack Plugin
+1. npm install @zenstackhq/trpc
+2. Add the following to `schema.zmodel`:
+```
+plugin trpc {
+    provider = '@zenstackhq/trpc'
+    output = 'src/server/routers/generated'
+```
+
+or use any other directory you want.
+
+3. in `src/app/model/[...path]/route.ts` change the content to the following:
+
+```js
+async function getPrisma() {
+    const session = await getServerAuthSession();
+    return enhance(prisma, { user: session?.user });
+}
+
+const handler = NextRequestHandler({ getPrisma, useAppDir: true });
+
+export {
+    handler as GET,
+    handler as POST,
+    handler as PUT,
+    handler as PATCH,
+    handler as DELETE,
+};
+```
+
+The following are the generic Create-T3-App docs, which are also very helpful.
 
 ## What's next? How do I make an app with this?
 
