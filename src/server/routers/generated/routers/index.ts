@@ -12,6 +12,7 @@ import {
 } from '@trpc/server';
 import { type PrismaClient } from '@prisma/client';
 import createUserRouter from './User.router';
+import createLearningRouter from './Learning.router';
 import createRoleRouter from './Role.router';
 import createPermissionRouter from './Permission.router';
 import createCodeRunRouter from './CodeRun.router';
@@ -43,6 +44,7 @@ export function db(ctx: any) {
 export function createRouter<Config extends BaseConfig>(router: RouterFactory<Config>, procedure: ProcBuilder<Config>) {
     return router({
         user: createUserRouter(router, procedure),
+        learning: createLearningRouter(router, procedure),
         role: createRoleRouter(router, procedure),
         permission: createPermissionRouter(router, procedure),
         codeRun: createCodeRunRouter(router, procedure),

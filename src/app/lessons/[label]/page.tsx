@@ -1,23 +1,21 @@
-import { prisma } from '~/server/db';
 import MDViewer from '~/app/components/MDViewer';
-
-export async function generateStaticParams() {
-    const lessons = await prisma.lesson.findMany({ select: { id: true } });
-
-    return lessons?.map((lesson) => ({
-        label: lesson.id
-    }));
-}
+import { api } from '~/trpc/server';
+import { LessonWithAuthor } from '../manage/[label]/page';
+import SaveProgressButton from '~/app/components/learning/SaveProgressButton';
 
 export default async function Page({ params }: { params: { label: string } }) {
-    const lesson = await prisma.lesson.findFirst({ where: { id: params.label }, include: { author: true } });
+    const user = await api.user.getMe.query();
+    const lesson = await api.zen.lesson.findFirst.query({ where: { id: params.label }, include: { author: true } }) as LessonWithAuthor;
 
     if (!lesson) return <></>;
 
     return (
         <div data-color-mode="dark">
             <MDViewer value={lesson.content} />
-            <p className="my-2">Written by {lesson.author?.name}</p>
+            <p className="my-2">Written by {lesson?.author?.name}</p>
+            <div className="max-w flex flex-right">
+                {user && <SaveProgressButton lesson={lesson} user={user} />}
+            </div>
         </div>
     );
 }

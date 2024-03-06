@@ -2,18 +2,10 @@
 
 import { api } from "~/trpc/react";
 import Spinner from "~/app/components/Spinner";
+import { User } from "@prisma/client";
 
-export default function CompleteRegistrationForm() {
+export default function CompleteRegistrationForm({ user }: { user: User }) {
     const updateMe = api.user.updateMe.useMutation();
-    const { data: user, isLoading } = api.user.getMe.useQuery();
-
-    if (isLoading || updateMe.isLoading) {
-        return (
-            <div className="w-max flex items-center rounded-3xl px-4 py-2 my-2 bg-white/10">
-                <Spinner className="w-6 h-6 place-self-center" />
-            </div>
-        );
-    }
 
     return (
         <div className="w-full rounded-3xl px-4 py-2 my-2 flex flex-col max-w-xs bg-white/10">
