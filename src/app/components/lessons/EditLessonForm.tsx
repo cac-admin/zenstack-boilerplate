@@ -8,6 +8,7 @@ import Link from "next/link";
 import Spinner from "../Spinner";
 import { Button } from "../ui/button";
 import DeleteLessonForm from "./DeleteLessonForm";
+import NewSubjectPopover from "./NewSubjectPopover";
 
 export default function EditLessonForm({ lesson }: {
     lesson: Lesson
@@ -22,15 +23,16 @@ export default function EditLessonForm({ lesson }: {
 
     if (isLoading || isSubLoading) {
         return (
-            <div className="w-max flex items-center rounded-3xl px-4 py-2 my-2 bg-white/10">
+            <div className="container w-full flex flex-row justify-center">
                 <Spinner className="w-6 h-6 place-self-center" />
             </div>
         );
     }
 
     return (
-        <div className="rounded-3xl py-4 gap-4 flex flex-col bg-white/10">
+        <div className="gap-4 flex py-4 flex-col">
             <div className="container flex flex-row content-center justify-end gap-4">
+                <NewSubjectPopover />
                 <Button className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20">
                     <Link
                         href={`/lessons/${lesson.id}`}
@@ -73,7 +75,9 @@ export default function EditLessonForm({ lesson }: {
                                 className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
                             />
                             :
-                            <Spinner className="w-6 h-6 place-self-center" />
+                            <div className="container w-full flex flex-row justify-center">
+                                <Spinner className="w-6 h-6 place-self-center" />
+                            </div>
                         }
                     </div>
                 </div>

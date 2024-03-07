@@ -10,7 +10,7 @@ export default function SaveProgressButton({ user, lesson }: { lesson: Lesson, u
 
     if (isLoading) {
         return (
-            <div className="w-max flex items-center rounded-3xl px-4 py-2 my-2 bg-white/10">
+            <div className="container w-full flex flex-row justify-center">
                 <Spinner className="w-6 h-6 place-self-center" />
             </div>
         );
@@ -21,7 +21,11 @@ export default function SaveProgressButton({ user, lesson }: { lesson: Lesson, u
     }
 
     if (isSuccess) {
-        return <p className="text-green-500">&#10004;</p>;
+        return (
+            <div className="container w-full rounded-3xl px-4 py-2 gap-2 flex flex-col max-w-xs bg-white/10">
+                <p className="text-green-500">&#10004;</p>;
+            </div>
+        );
     }
 
     return (

@@ -10,14 +10,22 @@ export default function NewUserForm() {
 
     if (isLoading || isRolesLoading) {
         return (
-            <div className="w-max flex items-center rounded-3xl px-4 py-2 my-2 bg-white/10">
+            <div className="container w-full flex flex-row justify-center">
                 <Spinner className="w-6 h-6 place-self-center" />
             </div>
         );
     }
 
+    if (isSuccess) {
+        return (
+            <div className="container w-full rounded-3xl px-4 py-2 gap-2 flex flex-col max-w-xs bg-white/10">
+                <p className="text-green-500">User Created &#10004;.</p>;
+            </div>
+        );
+    }
+
     return (
-        <div className="w-full rounded-3xl px-4 py-2 flex flex-col max-w-xs bg-white/10">
+        <div className="gap-4 flex py-4 flex-col">
             <form onSubmit={async (e) => {
                 e.preventDefault();
                 const data = new FormData(e.currentTarget);
@@ -45,40 +53,49 @@ export default function NewUserForm() {
                     }
                 }
             }}>
-                <div className="container flex flex-col gap-4">
-                    {all_roles?.map((role) =>
-                        <div className="container flex flex-row justify-center content-center items-center" key={role.id} >
-                            <label htmlFor={role.name} className="pr-4 py-2 my-2">{role.name}</label>
-                            <input
-                                type="checkbox"
-                                name={role.name}
-                                className="w-5 h-5 rounded-full text-purple-500 px-4 py-2 my-2 bg-white/10 bg-gray-100 border-gray-300 focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                        </div>)}
-                </div>
-                <label htmlFor="name">Full Name</label>
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Enter an email address..."
-                    className="w-full rounded-full px-4 py-2 my-2 text-black"
-                    required
-                />
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Enter a name..."
-                    className="w-full rounded-full px-4 py-2 my-2 text-black"
-                    required
-                />
-                {isLoading ?
-                    <Spinner className="w-6 h-6 place-self-center" />
-                    :
+                <div className="w-full border-b border-t py-2 mb-2">
+                    <h3 className="text-3xl">User Details</h3>
                     <input
-                        type="submit"
-                        value="Submit"
-                        className="rounded-full px-4 py-2 my-2 bg-white/10"
+                        type="email"
+                        name="email"
+                        placeholder="Enter an email address..."
+                        className="w-full rounded-full px-4 py-2 my-2 text-black"
+                        required
                     />
-                }
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Enter a name..."
+                        className="w-full rounded-full px-4 py-2 my-2 text-black"
+                        required
+                    />
+                </div>
+                <div className="w-full border-b py-2 mb-2">
+                    <h3 className="text-3xl">Roles</h3>
+                    <div className="container flex flex-row gap-2">
+                        {all_roles?.map((role) =>
+                            <div className="container flex flex-row justify-center content-center items-center" key={role.id} >
+                                <label htmlFor={role.name} className="pr-4 py-2 my-2">{role.name}</label>
+                                <input
+                                    type="checkbox"
+                                    name={role.name}
+                                    className="w-5 h-5 rounded-full text-purple-500 px-4 py-2 my-2 bg-white/10 bg-gray-100 border-gray-300 focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                            </div>)}
+                    </div>
+                </div>
+                <div className="flex flex-row content-center justify-end gap-4">
+                    {isLoading ?
+                        <div className="container w-full flex flex-row justify-center">
+                            <Spinner className="w-6 h-6 place-self-center" />
+                        </div>
+                        :
+                        <input
+                            type="submit"
+                            value="Submit"
+                            className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
+                        />
+                    }
+                </div>
             </form>
         </div >
     );

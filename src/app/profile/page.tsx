@@ -17,7 +17,7 @@ export default async function Page() {
                 My Account</h1>
             <p>Edit your account details here.</p>
             <Suspense fallback={
-                <div className="w-max flex items-center rounded-3xl px-4 py-2 my-2 bg-white/10">
+                <div className="container w-full flex flex-row justify-center">
                     <Spinner className="w-6 h-6 place-self-center" />
                 </div>
             }>

@@ -1,7 +1,6 @@
 'use client'
 
 import { api } from "~/trpc/react";
-import Spinner from "~/app/components/Spinner";
 import { User } from "@prisma/client";
 
 export default function CompleteRegistrationForm({ user }: { user: User }) {

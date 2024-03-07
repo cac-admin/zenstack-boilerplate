@@ -21,7 +21,10 @@ export default function DeleteUserForm({ user }: {
                         deleteUser({ where: { id: user.id } });
                     }}>Delete</Button>
                 :
-                <Spinner className="w-6 h-6 place-self-center" />}
+                <div className="container w-full flex flex-row justify-center">
+                    <Spinner className="w-6 h-6 place-self-center" />
+                </div>
+            }
         </div>
     );
 }
