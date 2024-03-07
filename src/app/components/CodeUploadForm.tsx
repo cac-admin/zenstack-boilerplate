@@ -7,7 +7,7 @@ export default function CodeUploader() {
 
     return (
         <div
-            className="w-full rounded-3xl px-4 py-2 my-2 flex max-w-xs bg-white/10"
+            className="w-full rounded-3xl px-4 py-2 my-2 flex max-w-xs bg-primary"
         >
             {error?.data?.zodError?.fieldErrors.lang && (
                 <span className="mb-8 text-red-500">{error.data.zodError.fieldErrors.lang}</span>
@@ -38,7 +38,7 @@ export default function CodeUploader() {
                 <input
                     type="submit"
                     value="Submit"
-                    className="w-full rounded-full px-4 py-2 my-2 bg-white/10"
+                    className="w-full rounded-full px-4 py-2 my-2 bg-primary"
                 />
             </form>
         </div>

@@ -1,0 +1,12 @@
+@media (prefers-color-scheme: dark) {
+    :root {
+        --foreground: 0 0% 100%;
+        --background: 265, 96%, 22%;
+        --popover: 240, 85%, 12%;
+        --primary-foreground: 0 0% 100%;
+        --primary: 266, 51%, 31%;
+        --secondary: 265, 96%, 17%;
+        --secondary-foreground: 239, 21%, 60%;
+        --muted: 237, 35%, 16%;
+    }
+}

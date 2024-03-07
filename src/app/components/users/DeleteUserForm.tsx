@@ -14,9 +14,9 @@ export default function DeleteUserForm({ user }: {
     });
 
     return (
-        <div className="w-max flex items-center rounded-3xl px-4 py-2 my-2 bg-white/10">
+        <div className="w-max flex items-center rounded-3xl px-4 py-2 my-2 bg-primary">
             {!isDeleting ?
-                <Button className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
+                <Button className="rounded-full bg-primary px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
                     onClick={async () => {
                         deleteUser({ where: { id: user.id } });
                     }}>Delete</Button>

@@ -10,12 +10,12 @@ export default async function Page({ params }: { params: { label: string } }) {
     if (!lesson) return <></>;
 
     return (
-        <div data-color-mode="dark">
+        <>
             <MDViewer value={lesson.content} />
             <p className="my-2">Written by {lesson?.author?.name}</p>
             <div className="max-w flex flex-right">
                 {user && <SaveProgressButton lesson={lesson} user={user} />}
             </div>
-        </div>
+        </>
     );
 }

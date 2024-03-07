@@ -18,7 +18,7 @@ export default function NewUserForm() {
 
     if (isSuccess) {
         return (
-            <div className="container w-full rounded-3xl px-4 py-2 gap-2 flex flex-col max-w-xs bg-white/10">
+            <div className="container w-full rounded-3xl px-4 py-2 gap-2 flex flex-col max-w-xs bg-primary">
                 <p className="text-green-500">User Created &#10004;.</p>;
             </div>
         );
@@ -59,14 +59,14 @@ export default function NewUserForm() {
                         type="email"
                         name="email"
                         placeholder="Enter an email address..."
-                        className="w-full rounded-full px-4 py-2 my-2 text-black"
+                        className="w-full rounded-full px-4 py-2 my-2 bg-muted placeholder:text-secondary-foreground"
                         required
                     />
                     <input
                         type="text"
                         name="name"
                         placeholder="Enter a name..."
-                        className="w-full rounded-full px-4 py-2 my-2 text-black"
+                        className="w-full rounded-full px-4 py-2 my-2 bg-muted placeholder:text-secondary-foreground"
                         required
                     />
                 </div>
@@ -79,7 +79,7 @@ export default function NewUserForm() {
                                 <input
                                     type="checkbox"
                                     name={role.name}
-                                    className="w-5 h-5 rounded-full text-purple-500 px-4 py-2 my-2 bg-white/10 bg-gray-100 border-gray-300 focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                    className="w-5 h-5 rounded-full text-purple-500 px-4 py-2 my-2 bg-muted" />
                             </div>)}
                     </div>
                 </div>
@@ -92,7 +92,7 @@ export default function NewUserForm() {
                         <input
                             type="submit"
                             value="Submit"
-                            className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
+                            className="rounded-full bg-primary px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
                         />
                     }
                 </div>

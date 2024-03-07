@@ -1,0 +1,10 @@
+:root {
+    --foreground: 265, 96%, 22%;
+    --background: 202, 66%, 90%;
+    --popover: 240, 40%, 80%;
+    --primary: 239, 30%, 95%;
+    --primary-foreground: 265, 96%, 22%;
+    --secondary: 239, 21%, 60%;
+    --secondary-foreground: 239, 21%, 51%;
+    --muted: 239, 21%, 75%;
+}

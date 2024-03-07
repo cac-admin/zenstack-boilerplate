@@ -11,7 +11,7 @@ export default function NewSubjectPopover() {
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20">
+                <Button className="rounded-full bg-primary px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20">
                     New Subject
                 </Button>
             </PopoverTrigger>

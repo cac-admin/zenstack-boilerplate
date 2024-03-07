@@ -33,7 +33,7 @@ export default function EditLessonForm({ lesson }: {
         <div className="gap-4 flex py-4 flex-col">
             <div className="container flex flex-row content-center justify-end gap-4">
                 <NewSubjectPopover />
-                <Button className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20">
+                <Button className="rounded-full bg-primary px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20">
                     <Link
                         href={`/lessons/${lesson.id}`}
                     >View Lesson</Link>
@@ -63,7 +63,7 @@ export default function EditLessonForm({ lesson }: {
                 <div className="flex flex-row justify-between content-between">
                     <div className="container flex flex-row">
                         <label htmlFor="subject" className="pr-4 py-2 my-2">Subject</label>
-                        <select name="subject" defaultValue={lesson.subName} className="rounded-full px-4 py-2 my-2 bg-white/10" required>
+                        <select name="subject" defaultValue={lesson.subName} className="rounded-full px-4 py-2 my-2 bg-primary" required>
                             {subjects?.map((sub) => <option key={sub.name} value={sub.name}>{sub.name}</option>)}
                         </select>
                     </div>
@@ -72,7 +72,7 @@ export default function EditLessonForm({ lesson }: {
                             <input
                                 type="submit"
                                 value="Save"
-                                className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
+                                className="rounded-full bg-primary px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
                             />
                             :
                             <div className="container w-full flex flex-row justify-center">

@@ -22,7 +22,7 @@ export default function DeleteLessonForm({ lesson }: {
     }
 
     return (
-        <Button className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
+        <Button className="rounded-full bg-primary px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
             onClick={async () => {
                 deleteLesson({ where: { id: lesson.id } });
             }}>Delete Lesson</Button>

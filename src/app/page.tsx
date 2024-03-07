@@ -18,9 +18,9 @@ export default async function Page() {
         return (
             <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
                 <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-                    Welcome to Ethan&apos;s Online Training Platform.
+                    Welcome to the Queen&apos;s Student Cluster Competition Online Training Platform.
                 </h1>
-                <p>Create an account to get started, or log in if you&apos;re an existing user.</p>
+                <p>Create an account to track your learning, or follow the provided lessons at your own pace.</p>
             </div>
         );
     }
@@ -31,7 +31,7 @@ export default async function Page() {
                 <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
                     Complete your registration.
                 </h1>
-                <p>There&apos;s still some more info we need from you before you can start your learning.</p>
+                <p>There&apos;s still some more info we need from you before you can complete your registration.</p>
                 <Suspense fallback={
                     <div className="container w-full flex flex-row justify-center">
                         <Spinner className="w-6 h-6 place-self-center" />

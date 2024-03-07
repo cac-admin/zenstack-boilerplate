@@ -22,7 +22,7 @@ export default function SaveProgressButton({ user, lesson }: { lesson: Lesson, u
 
     if (isSuccess) {
         return (
-            <div className="container w-full rounded-3xl px-4 py-2 gap-2 flex flex-col max-w-xs bg-white/10">
+            <div className="container w-full rounded-3xl px-4 py-2 gap-2 flex flex-col max-w-xs bg-primary">
                 <p className="text-green-500">&#10004;</p>;
             </div>
         );
@@ -30,7 +30,7 @@ export default function SaveProgressButton({ user, lesson }: { lesson: Lesson, u
 
     return (
         <Button
-            className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
+            className="rounded-full bg-primary px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
             onClick={() => {
                 try {
                     mutate({

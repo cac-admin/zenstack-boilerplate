@@ -69,7 +69,7 @@ export default function EditUserForm({ user }: {
                                     type="checkbox"
                                     name={role.name}
                                     defaultChecked={user.roles?.find((r) => r.id === role.id) !== undefined}
-                                    className="w-5 h-5 rounded-full text-purple-500 px-4 py-2 my-2 bg-white/10 bg-gray-100 border-gray-300 focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                    className="w-5 h-5 rounded-full text-purple-500 px-4 py-2 my-2 bg-primary bg-gray-100 border-gray-300 focus:ring-purple-500 dark:focus:ring-purple-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                             </div>)}
                     </div>
                 </div>
@@ -82,7 +82,7 @@ export default function EditUserForm({ user }: {
                         <input
                             type="submit"
                             value="Submit"
-                            className="rounded-full bg-white/10 px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
+                            className="rounded-full bg-primary px-4 py-2 my-2 font-semibold no-underline transition hover:bg-white/20"
                         />
                     }
                 </div>

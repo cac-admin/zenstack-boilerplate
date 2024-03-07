@@ -12,7 +12,7 @@ export default async function Page() {
 
     return (
         <div className="w-full flex flex-col gap-4 p-4">
-            <p className="w-max rounded-full px-4 py-2 my-2 flex max-w-s bg-white/10">
+            <p className="w-max rounded-full px-4 py-2 my-2 flex max-w-s bg-primary">
                 Please select a lesson.</p>
         </div>
     );
