@@ -10,7 +10,10 @@
 
 # database
 /prisma/db.sqlite
+/prisma/dev.db
 /prisma/db.sqlite-journal
+migration.sql
+pscale_dump_qscct_prod_main_20240309_094521
 
 # next.js
 /.next/

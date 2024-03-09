@@ -13,7 +13,7 @@ export default async function Page() {
     noStore();
 
     const user = await api.user.getMe.query();
-    const learning = await api.zen.learning.findFirst.query({ where: { userId: user?.id }, include: { pinnedSubject: true } }) as LearningWithSubject;
+    const learning = await api.zen.learning.findFirst.query({ where: { userId: user?.id }, include: { pinnedSubject: true } }) as LearningWithSubject | undefined;
     if (!user) {
         return (
             <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">

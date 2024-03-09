@@ -12,10 +12,6 @@ export default function createRouter<Config extends BaseConfig>(
             .input($Schema.RoleInputSchema.aggregate)
             .query(({ ctx, input }) => checkRead(db(ctx).role.aggregate(input as any))),
 
-        createMany: procedure
-            .input($Schema.RoleInputSchema.createMany)
-            .mutation(async ({ ctx, input }) => checkMutate(db(ctx).role.createMany(input as any))),
-
         create: procedure
             .input($Schema.RoleInputSchema.create)
             .mutation(async ({ ctx, input }) => checkMutate(db(ctx).role.create(input as any))),

@@ -12,10 +12,6 @@ export default function createRouter<Config extends BaseConfig>(
             .input($Schema.VerificationTokenInputSchema.aggregate)
             .query(({ ctx, input }) => checkRead(db(ctx).verificationToken.aggregate(input as any))),
 
-        createMany: procedure
-            .input($Schema.VerificationTokenInputSchema.createMany)
-            .mutation(async ({ ctx, input }) => checkMutate(db(ctx).verificationToken.createMany(input as any))),
-
         create: procedure
             .input($Schema.VerificationTokenInputSchema.create)
             .mutation(async ({ ctx, input }) => checkMutate(db(ctx).verificationToken.create(input as any))),
