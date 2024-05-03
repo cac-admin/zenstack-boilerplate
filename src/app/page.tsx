@@ -18,8 +18,9 @@ export default async function Page() {
         return (
             <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
                 <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-                    Welcome to the Queen&apos;s Student Cluster Competition Online Training Platform.
+                    This is a sample application scaffolded using Create T3 App and ZenStack.
                 </h1>
+                <p>This application is designed as a learning platform with lessons in various subjects. Users can register with their email addresses to track their learning as they complete lessons. There are also roles for administrators and editors, to create and manage lessons and users, respectively.</p>
                 <p>Create an account to track your learning, or follow the provided lessons at your own pace.</p>
             </div>
         );

@@ -14,7 +14,7 @@ export default async function Menu() {
                     src="/site_icon.png"
                     height="40"
                     width="55"
-                    alt="QSCCT Logo"
+                    alt="Default Logo"
                     className="rounded-full bg-white dark:bg-black p-1" />
             </Link>
             <div className="flex flex-row items-center justify-center rounded-full px-2 py-2 bg-background gap-2">

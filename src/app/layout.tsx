@@ -11,8 +11,8 @@ const inter = Inter({
 });
 
 export const metadata = {
-    title: "QSCCT Learning Platform",
-    description: "The Queen's Student Cluster Competition learning platform is an educational tool for use by members of the Queen's SCC Team. The site includes resources on High Performance Computing, parallel processing, both beginner and advanced Linux usage, and C programming.",
+    title: "Create T3 App Sample Application",
+    description: "This is a sample learning platform created using Create T3 App as a scaffold, with ZenStack for database permission management.",
     icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
